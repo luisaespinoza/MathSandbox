@@ -1,0 +1,444 @@
+{
+  "schema_version": 2,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    },
+    {
+      "id": "builtin:gamma",
+      "name": "gamma",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:gamma",
+      "notation": ""
+    }
+  ],
+  "constructions": [
+    {
+      "id": "integer",
+      "kind": "iteration",
+      "description": "Finite nonnegative integer composition; no fractional extension"
+    },
+    {
+      "id": "builtin:rl-integral",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville integral; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:rl-derivative",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville derivative; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:caputo-derivative",
+      "kind": "fractional",
+      "description": "Left Caputo derivative; lower endpoint zero; admissible power functions"
+    },
+    {
+      "id": "positive-power",
+      "kind": "iteration",
+      "description": "On x>0: the chosen family F_t(x)=x^(p^t), p>0"
+    },
+    {
+      "id": "translation",
+      "kind": "iteration",
+      "description": "On the reals: the family F_t(x)=x+c*t"
+    },
+    {
+      "id": "positive-scaling",
+      "kind": "iteration",
+      "description": "The family F_t(x)=a^t*x, a>0"
+    }
+  ],
+  "objects": [
+    {
+      "id": "7e3ac72b-18f0-41e4-86bd-a2d2206354e4",
+      "name": "integral",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:a44de98a-824b-4688-95ea-bf168fe6dba1",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "fractional",
+        "value": "builtin:rl-integral",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:pow",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "x:a44de98a-824b-4688-95ea-bf168fe6dba1",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "integer",
+                "value": "2",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:a44de98a-824b-4688-95ea-bf168fe6dba1",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "1",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "-1",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": [
+          [
+            "side",
+            "left"
+          ],
+          [
+            "definition",
+            "riemann-liouville"
+          ],
+          [
+            "operation",
+            "integral"
+          ]
+        ]
+      },
+      "original_definition": "integral(x) = FractionalIntegral(x^2, (x, 0), 1/2, \"riemann-liouville\")",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "PositiveReals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "2969c4fe-ab84-426c-aae0-f8d137073c44",
+      "name": "rl",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:f5f25a28-d4f0-4c9d-9654-fb820b81d77b",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "fractional",
+        "value": "builtin:rl-derivative",
+        "args": [
+          {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:f5f25a28-d4f0-4c9d-9654-fb820b81d77b",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "1",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "-1",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": [
+          [
+            "side",
+            "left"
+          ],
+          [
+            "definition",
+            "riemann-liouville"
+          ],
+          [
+            "operation",
+            "derivative"
+          ]
+        ]
+      },
+      "original_definition": "rl(x) = FractionalDerivative(1, (x, 0), 1/2, \"riemann-liouville\")",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "PositiveReals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "42032a2b-37a4-436a-809c-0d72cf2f2dc4",
+      "name": "caputo",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:9f485fd5-7ee8-44bc-ac9a-dc2bdc76dce4",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "fractional",
+        "value": "builtin:caputo-derivative",
+        "args": [
+          {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:9f485fd5-7ee8-44bc-ac9a-dc2bdc76dce4",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "1",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "-1",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": [
+          [
+            "side",
+            "left"
+          ],
+          [
+            "definition",
+            "caputo"
+          ],
+          [
+            "operation",
+            "derivative"
+          ]
+        ]
+      },
+      "original_definition": "caputo(x) = FractionalDerivative(1, (x, 0), 1/2, \"caputo\")",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "PositiveReals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 1,
+    "view": {
+      "name": "integral",
+      "mode": "exact",
+      "coordinate": "1",
+      "lower": "0.25",
+      "upper": "3",
+      "x_scale": "linear",
+      "y_scale": "linear",
+      "digits": 30,
+      "gamma_factorial": false,
+      "max_points": 1000
+    }
+  }
+}

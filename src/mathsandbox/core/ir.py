@@ -21,9 +21,10 @@ class Context:
 
 @dataclass(frozen=True)
 class Expr:
-    kind: Literal["integer", "symbol", "operator", "call", "integral", "derivative"]
+    kind: Literal["integer", "symbol", "operator", "call", "integral", "derivative", "constant", "fold", "fractional", "iterate"]
     value: str
     args: tuple["Expr", ...] = ()
+    conventions: tuple[tuple[str, str], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -48,6 +49,8 @@ class Provenance:
     backend: str
     backend_version: str
     context: Context
+    rules: tuple[str, ...] = ()
+    diagnostic: str = ""
 
 
 @dataclass(frozen=True)

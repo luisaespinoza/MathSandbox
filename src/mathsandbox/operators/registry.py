@@ -14,7 +14,7 @@ class OperatorDefinition:
 class OperatorRegistry:
     def __init__(self) -> None:
         self.definitions: dict[str, OperatorDefinition] = {}
-        for name, arity in (("add", 2), ("mul", 2), ("pow", 2), ("sin", 1), ("cos", 1), ("exp", 1), ("log", 1), ("factorial", 1)):
+        for name, arity in (("add", 2), ("mul", 2), ("pow", 2), ("sin", 1), ("cos", 1), ("exp", 1), ("log", 1), ("factorial", 1), ("gamma", 1)):
             self.register(OperatorDefinition("builtin:" + name, name, arity, semantics="standard:" + name))
 
     def register(self, definition: OperatorDefinition) -> None:

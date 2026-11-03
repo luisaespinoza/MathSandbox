@@ -3,6 +3,7 @@ import ast
 import re
 from .ir import Expr, identity
 from ..operators.registry import OperatorRegistry
+from ..operators.syntax import RESERVED, construction
 
 
 class Parser:
@@ -25,6 +26,8 @@ class Parser:
         if isinstance(node, ast.Constant) and type(node.value) is int:
             return Expr("integer", str(node.value))
         if isinstance(node, ast.Name):
+            if node.id in ("pi", "E", "I") and node.id not in scope:
+                return Expr("constant", node.id)
             if node.id not in scope:
                 raise ValueError(f"Unbound symbol: {node.id}")
             return scope[node.id]
@@ -41,6 +44,8 @@ class Parser:
                 return Expr("operator", "builtin:" + op, (left, right))
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and not node.keywords:
             name = node.func.id
+            if name in RESERVED:
+                return construction(self, node, scope)
             if name == "Integral" and len(node.args) == 2:
                 bounds = node.args[1]
                 if not isinstance(bounds, ast.Tuple) or len(bounds.elts) != 3 or not isinstance(bounds.elts[0], ast.Name):

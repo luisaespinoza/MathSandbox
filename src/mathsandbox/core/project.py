@@ -2,11 +2,13 @@ import sympy
 from .ir import Context, Expr, MathObject, Provenance, Representation, identity
 from .parser import Parser
 from ..operators.registry import OperatorRegistry
+from ..operators.constructions import ConstructionRegistry
+from ..operators.syntax import RESERVED
 from ..adapters.sympy_backend import evaluate
 
 
 def calls(expression: Expr) -> set[str]:
-    result = {expression.value} if expression.kind == "call" else set()
+    result = {expression.value} if expression.kind in ("call", "iterate") else set()
     for arg in expression.args:
         result.update(calls(arg))
     return result
@@ -15,6 +17,7 @@ def calls(expression: Expr) -> set[str]:
 class Project:
     def __init__(self) -> None:
         self.registry = OperatorRegistry()
+        self.constructions = ConstructionRegistry()
         self.objects: dict[str, MathObject] = {}
         self.representations: dict[str, Representation] = {}
         self.history: list[MathObject] = []
@@ -46,7 +49,7 @@ class Project:
     def define(self, text: str, context: Context | None = None) -> MathObject:
         name_match = text.split("(", 1)[0].strip()
         names = self.names
-        if any(d.name == name_match for d in self.registry.definitions.values()) or name_match in ("Integral", "diff"):
+        if any(d.name == name_match for d in self.registry.definitions.values()) or name_match in ("Integral", "diff", *RESERVED):
             raise ValueError("Reserved operator name")
         object_id = names.get(name_match, identity())
         names[name_match] = object_id
@@ -69,7 +72,7 @@ class Project:
 
     def validate_expression(self, node: Expr, objects=None) -> None:
         objects = self.objects if objects is None else objects
-        arities = {"integer": 0, "symbol": 0, "integral": 4, "derivative": 2}
+        arities = {"integer": 0, "symbol": 0, "integral": 4, "derivative": 2, "constant": 0, "fold": 5, "fractional": 4, "iterate": 2}
         if node.kind == "operator":
             arity = self.registry.definitions[node.value].arity
         elif node.kind == "call":
@@ -82,6 +85,36 @@ class Project:
             raise ValueError("Expression arity mismatch")
         if node.kind == "integer":
             int(node.value)
+        if node.kind == "constant" and node.value not in ("pi", "E", "I"):
+            raise ValueError("Unknown mathematical constant")
+        if node.kind == "fold":
+            if self.registry.definitions[node.value].arity != 2 or node.args[1].kind != "symbol":
+                raise ValueError("Invalid fold signature or binder")
+            if dict(node.conventions) not in ({"association": "left", "range": "inclusive-integer"},
+                                              {"association": "right", "range": "inclusive-integer"}):
+                raise ValueError("Invalid fold conventions")
+        if node.kind == "fractional":
+            if node.args[1].kind != "symbol" or set(dict(node.conventions)) != {"side", "definition", "operation"}:
+                raise ValueError("Invalid fractional calculus semantics")
+            conventions = dict(node.conventions)
+            if conventions["side"] != "left" or conventions["operation"] not in ("integral", "derivative"):
+                raise ValueError("Invalid fractional calculus conventions")
+            method = conventions["definition"]
+            suffix = conventions["operation"]
+            expected = {("riemann-liouville", "integral"): "builtin:rl-integral",
+                        ("riemann-liouville", "derivative"): "builtin:rl-derivative",
+                        ("caputo", "derivative"): "builtin:caputo-derivative"}.get((method, suffix), method+":"+suffix)
+            if node.value != expected:
+                raise ValueError("Fractional definition identity mismatch")
+        if node.kind == "iterate":
+            if node.value not in objects or len(objects[node.value].parameters) != 1:
+                raise ValueError("Iteration requires a unary function")
+            if set(dict(node.conventions)) != {"family"}:
+                raise ValueError("Iteration family must be explicit")
+        if len(dict(node.conventions)) != len(node.conventions):
+            raise ValueError("Duplicate semantic conventions")
+        if node.kind not in ("fold", "fractional", "iterate") and node.conventions:
+            raise ValueError("Unexpected expression conventions")
         if node.kind in ("integral", "derivative") and node.args[1].kind != "symbol":
             raise ValueError("Invalid bound variable")
         for arg in node.args:
@@ -91,10 +124,10 @@ class Project:
         obj = self.objects[self.names[name]]
         if obj.id in self.representations and not keep_unevaluated:
             return self.representations[obj.id]
-        expression, status = (obj.expression, "unevaluated") if keep_unevaluated else evaluate(obj.expression, self.objects, self.registry, obj.context, timeout)
+        expression, status, rules, diagnostic = (obj.expression, "unevaluated", (), "Kept unevaluated by request") if keep_unevaluated else evaluate(obj.expression, self.objects, self.registry, obj.context, timeout, self.constructions)
         provenance = Provenance(obj.id, obj.revision,
             tuple(sorted((i, self.objects[i].revision) for i in self.closure(obj.id))),
-            "keep-unevaluated" if keep_unevaluated else "symbolic-evaluation", "SymPy", sympy.__version__, obj.context)
+            "keep-unevaluated" if keep_unevaluated else "symbolic-evaluation", "SymPy", sympy.__version__, obj.context, rules, diagnostic)
         result = Representation(expression, status, provenance)
         self.transformations.append(result)
         if not keep_unevaluated and status == "exact":
@@ -110,4 +143,4 @@ class Project:
         result = self.evaluate(name)
         if result.status != "exact":
             raise IncompatibleSemantics("No exact licensed representation; inspect evaluate().expression instead")
-        return Translator(self.objects, self.registry, obj.context).translate(result.expression)
+        return Translator(self.objects, self.registry, obj.context, self.constructions).translate(result.expression)

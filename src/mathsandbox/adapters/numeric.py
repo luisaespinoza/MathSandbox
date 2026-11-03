@@ -22,23 +22,36 @@ class NumericEvaluator:
         if not compatible(self.obj.context):
             raise IncompatibleSemantics("Numeric adapter does not license this context")
         if len(self.obj.parameters) != 1:
-            raise ValueError("A1 supports real functions with one parameter")
+            raise ValueError("The workbench supports real functions with one parameter")
         result = project.representations.get(self.obj.id)
         self.expression = result.expression if result and result.status == "exact" else self.obj.expression
 
     def at(self, x):
-        return self.node(self.expression, {self.obj.parameters[0].value: mp.mpf(x)})
+        x = mp.mpf(x)
+        if self.obj.context.domain == "PositiveReals" and x <= 0:
+            raise ValueError("This function requires the positive-real domain x>0")
+        result = self.node(self.expression, {self.obj.parameters[0].value: x})
+        if not mp.isfinite(result) or mp.im(result) != 0:
+            raise ValueError("Nonfinite or nonreal result is incompatible with the real view")
+        return mp.re(result)
 
     def node(self, node: Expr, bindings):
+        if node.kind == "constant":
+            if node.value == "I":
+                raise ValueError("Nonfinite or nonreal operands are incompatible with the real-only backend")
+            return {"pi": mp.pi, "E": mp.e, "I": mp.j}[node.value]
         if node.kind == "integer":
             return mp.mpf(node.value)
         if node.kind == "symbol":
             return bindings[node.value]
         if node.kind == "call":
             obj = self.project.objects[node.value]
-            if obj.context != self.obj.context:
+            from dataclasses import replace
+            if not compatible(obj.context) or replace(obj.context, domain=self.obj.context.domain) != self.obj.context:
                 raise IncompatibleSemantics("Function contexts differ")
             values = [self.node(a, bindings) for a in node.args]
+            if obj.context.domain == "PositiveReals" and any(v <= 0 for v in values):
+                raise ValueError("Called function requires positive inputs")
             return self.node(obj.expression, {p.value: a for p, a in zip(obj.parameters, values)})
         if node.kind != "operator":
             raise IncompatibleSemantics("Integral/derivative needs an exact representation before numeric evaluation")
@@ -55,13 +68,19 @@ class NumericEvaluator:
         elif name == "pow":
             if args[0] == 0 and args[1] <= 0:
                 raise ValueError("Undefined zero power")
+            if args[0] != 0 and abs(args[1]*mp.log(abs(args[0]))) > 1_000_000:
+                raise OverflowError("Numerical power exceeds the magnitude budget; expression retained symbolically")
             result = mp.power(*args)
         elif name == "log":
             if args[0] <= 0:
                 raise ValueError("Real logarithm requires a positive argument")
             result = mp.log(args[0])
         elif name in ("sin", "cos", "exp"):
+            if name == "exp" and abs(args[0]) > 1_000_000:
+                raise OverflowError("Numerical exponential exceeds the magnitude budget; expression retained symbolically")
             result = getattr(mp, name)(args[0])
+        elif name == "gamma":
+            result = mp.gamma(args[0])
         elif name == "factorial":
             x = args[0]
             if x < 0 or (not self.gamma_factorial and x != mp.floor(x)):

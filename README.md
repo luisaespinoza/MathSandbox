@@ -1,8 +1,8 @@
-# MathSandbox — A1 local workbench
+# MathSandbox — A2 generalized operators
 
 A local browser workbench and Python library for named mathematical definitions,
 exact symbolic composition, numerical exploration, and reproducible project records. The project specification is in
-[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0 and the minimal A1 workbench; A2–A5 remain deferred.
+[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A2; A3–A5 remain deferred.
 
 ## Install and run
 
@@ -84,8 +84,8 @@ server. Use one browser tab per running session; multiple tabs share its project
 
 The interface and plotting assets work offline after installation. Projects remain
 on your computer; this is a single-session development application, not a hosted
-service. Only one-parameter real functions are plottable in A1. No A2 indexed fold,
-fractional calculus, or continuous iteration functionality is included.
+service. Only one-parameter real functions are plottable. A2 constructions can be inspected and sampled when their stated domains and
+backend obligations are satisfied.
 
 ### Coordinate views and factorial convention
 
@@ -121,9 +121,29 @@ error estimate, or guaranteed detection of every narrow feature or singularity.
 The numerical adapter evaluates the original IR pointwise when no exact
 representation exists: e.g. `1/x` can be sampled away from zero while `x/x` remains
 undefined at zero. It never uses symbolic cancellation to widen a domain. Custom
-operators/contexts remain unsupported. An integral or derivative requires a licensed
+operators and unsupported contexts remain unsupported. An integral or derivative requires a licensed
 exact symbolic representation before numerical sampling; there is no new numerical
 integration or differentiation algorithm in A1.
+
+## A2 generalized operators
+
+The **Power towers**, **Fractional calculus**, and **Half iteration** examples are
+available directly in the workbench. These constructions require explicit
+association, empty-range values, calculus definitions, iteration families, and
+positive-real domains where needed. The input-domain selector edits the selected
+function and invalidates downstream results. Unsupported constructions remain
+unevaluated with a diagnostic and their original semantics intact.
+
+See [A2 semantics and syntax](docs/A2_SEMANTICS.md) for formulas, conventions,
+resource limits, and supported versus deferred cases. Run:
+
+```sh
+python examples/generalized_operators.py
+```
+
+Project JSON now uses schema version 2; version 1 A0/A1 projects still load. A2 files
+require the A2 release. Construction choices, branches, domains, source revisions,
+and exact-rule provenance survive serialization.
 
 ## A0 contracts
 
@@ -132,9 +152,10 @@ integration or differentiation algorithm in A1.
   universe, assumptions, branch conventions, axioms, and precision.
 - `core/parser.py`: a restricted Python-AST grammar, never `eval` or SymPy string
   parsing. Supports integer/rational arithmetic, `^` or `**`, unary minus, named
-  function calls, sin/cos/exp/log, factorial, definite `Integral`, and first `diff`.
-  All symbols must be parameters or lexically bound integral variables. Function
-  parameters and integral binders have distinct identities; substitution is
+  function calls, sin/cos/exp/log, factorial, gamma, definite `Integral`, and first `diff`.
+  Symbols must be parameters, lexically bound variables, or explicit pi/E/I
+  constants (complex constants stay formal in the real-only adapter). Function
+  parameters, fold indices, and integral binders have distinct identities; substitution is
   simultaneous. Float literals, attributes, keyword calls, and arbitrary Python
   are rejected.
 - `operators/`: identity-based extensible registry. Custom operator definitions
@@ -145,11 +166,12 @@ integration or differentiation algorithm in A1.
   unaffected results remain cached. Prior definitions and transformations remain
   available in `history` and `transformations`.
 - `adapters/`: SymPy translation in a spawned worker with a default ten-second
-  wall timeout and exception isolation. Calls require identical contexts. A0
-  evaluates only standard real arithmetic with principal branches and no extra
-  assumptions. A custom universe, axiom set, domain, or branch is retained but
+  wall timeout and exception isolation. Calls require compatible foundations and
+  established positive arguments where a callee requires them. The adapter
+  evaluates standard arithmetic over real or explicitly positive-real inputs with principal branches and no extra
+  assumptions. A custom universe, axiom set, unsupported domain, or branch is retained but
   returns `unevaluated`. Logarithms, noninteger powers, and symbolic reciprocals
-  also remain unevaluated because A0 has no domain-obligation solver. This avoids
+  remain unevaluated unless the needed positivity or nonzero condition is established. This avoids
   erasing poles (`x/x`) or silently choosing complex branches. Custom products
   never become ordinary multiplication.
 - `storage/`: versioned JSON with ASTs, operator definitions, semantic contexts,
@@ -175,11 +197,11 @@ Tests cover workbench HTTP startup, local assets, project save/open, numeric
 precision, adaptive refinement, scale domains, factorial conventions, dependency
 updates through the UI session, and semantic isolation. A0 tests cover the exact integral and derivative, dependency updates, binding
 capture, atomic cycle/arity rejection, semantic incompatibilities, custom operator
-isolation, timeout preservation, and save/load. These checks establish the A0
-vertical slice; they do not certify arbitrary integrations or custom mathematics.
+isolation, timeout preservation, and save/load. A2 tests cover finite towers, fold bindings, fractional boundary conditions,
+iteration family identities, domain gates, resource limits, and registry/JSON
+preservation. These checks establish the implemented vertical slices; they do not certify arbitrary integrations or custom mathematics.
 
-Deferred to A2–A5: indexed folds,
-fractional calculus/iteration, advanced geometry, analytic continuation,
+Deferred to A3–A5: advanced geometry, analytic continuation,
 transformation discovery, and axiom/model/proof engines. General free symbols,
 parameterized domain proofs, matrices, recurrences, forward references, and
 arbitrary user-supplied executable evaluators are not supported yet. Contexts

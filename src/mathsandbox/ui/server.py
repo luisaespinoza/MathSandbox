@@ -65,16 +65,15 @@ class Handler(BaseHTTPRequestHandler):
             workbench = self.server.workbench
             if self.path == "/api/define":
                 result = workbench.apply(data["definitions"])
+            elif self.path == "/api/domain":
+                result = workbench.set_domain(data["name"], data["domain"])
             elif self.path == "/api/render":
                 result = workbench.render(data)
             elif self.path == "/api/import":
                 result = workbench.restore(data["project"])
             elif self.path == "/api/demo":
                 candidate = Workbench()
-                if data.get("example") == "factorial":
-                    candidate.project = type(candidate.project)()
-                    candidate.apply("f(x) = factorial(x)")
-                    candidate.view.update(name="f", lower="1", upper="30", y_scale="factorial", gamma_factorial=True)
+                candidate.choose_example(data.get("example", "composition"))
                 self.server.workbench = candidate
                 result = candidate.state()
             else:
@@ -86,7 +85,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="MathSandbox local A1 workbench")
+    parser = argparse.ArgumentParser(description="MathSandbox local A2 workbench")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--no-browser", action="store_true")
     args = parser.parse_args()
@@ -96,7 +95,7 @@ def main():
         parser.error("Install the workbench extra: python -m pip install -e '.[workbench,dev]'")
     with WorkbenchServer(("127.0.0.1", args.port)) as server:
         address = f"http://127.0.0.1:{server.server_port}"
-        print(f"MathSandbox A1 running at {address} — Ctrl+C to stop", flush=True)
+        print(f"MathSandbox A2 running at {address} — Ctrl+C to stop", flush=True)
         if not args.no_browser:
             webbrowser.open(address)
         try:

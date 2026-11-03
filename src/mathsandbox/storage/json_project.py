@@ -5,14 +5,18 @@ from pathlib import Path
 from ..core.ir import Context, Expr, MathObject, Provenance, Representation
 from ..core.project import Project, calls
 from ..operators.registry import OperatorDefinition
+from ..operators.constructions import ConstructionDefinition, ConstructionRegistry
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def expression(data: dict) -> Expr:
-    if set(data) != {"kind", "value", "args"} or not isinstance(data["value"], str):
+    if not {"kind", "value", "args"} <= set(data) or set(data) - {"kind", "value", "args", "conventions"} or not isinstance(data["value"], str):
         raise ValueError("Invalid expression record")
-    return Expr(data["kind"], data["value"], tuple(expression(a) for a in data["args"]))
+    conventions = tuple(tuple(pair) for pair in data.get("conventions", ()))
+    if any(len(pair) != 2 or not all(isinstance(v, str) for v in pair) for pair in conventions):
+        raise ValueError("Invalid semantic conventions")
+    return Expr(data["kind"], data["value"], tuple(expression(a) for a in data["args"]), conventions)
 
 
 def context(data: dict) -> Context:
@@ -31,12 +35,14 @@ def representation(data: dict) -> Representation:
         raise ValueError("Unknown representation status")
     return Representation(expression(data["expression"]), data["status"], Provenance(**{
         **provenance, "context": context(provenance["context"]),
-        "dependency_revisions": tuple(tuple(pair) for pair in provenance["dependency_revisions"])}))
+        "dependency_revisions": tuple(tuple(pair) for pair in provenance["dependency_revisions"]),
+        "rules": tuple(provenance.get("rules", ())) }))
 
 
 def dumps(project: Project) -> str:
     data = {"schema_version": SCHEMA_VERSION,
             "operators": [asdict(d) for d in project.registry.definitions.values()],
+            "constructions": [asdict(d) for d in project.constructions.definitions.values()],
             "objects": [asdict(o) for o in project.objects.values()],
             "history": [asdict(o) for o in project.history],
             "transformations": [asdict(r) for r in project.transformations],
@@ -46,7 +52,7 @@ def dumps(project: Project) -> str:
 
 def _loads(text: str) -> Project:
     data = json.loads(text)
-    if data.get("schema_version") != SCHEMA_VERSION:
+    if data.get("schema_version") not in (1, SCHEMA_VERSION):
         raise ValueError("Unsupported project schema version")
     project = Project()
     builtin = dict(project.registry.definitions)
@@ -56,13 +62,23 @@ def _loads(text: str) -> Project:
         if definition.id.startswith("builtin:") and builtin.get(definition.id) != definition:
             raise ValueError("Modified builtin semantics")
         project.registry.register(definition)
-    custom_factorial = any(d.name == "factorial" and d.id != "builtin:factorial"
-                           for d in project.registry.definitions.values())
-    if "builtin:factorial" not in project.registry.definitions and not custom_factorial:
-        project.registry.register(builtin["builtin:factorial"])
-    if any(project.registry.definitions.get(k) != v for k, v in builtin.items()
-           if not (k == "builtin:factorial" and custom_factorial)):
-        raise ValueError("Missing builtin operators")
+    # Additive builtin migration preserves legacy custom operators with these names.
+    for name in ("factorial", "gamma"):
+        if not any(d.name == name for d in project.registry.definitions.values()):
+            project.registry.register(builtin["builtin:"+name])
+    for key, definition in builtin.items():
+        legacy_custom = definition.name in ("factorial", "gamma") and any(
+            d.name == definition.name and d.id != key for d in project.registry.definitions.values())
+        if not legacy_custom and project.registry.definitions.get(key) != definition:
+            raise ValueError("Missing builtin operators")
+    original_constructions = ConstructionRegistry().definitions
+    for item in data.get("constructions", ()):
+        definition = ConstructionDefinition(**item)
+        if definition.id in original_constructions:
+            if definition != original_constructions[definition.id]:
+                raise ValueError("Modified builtin construction")
+        else:
+            project.constructions.register(definition)
     for item in data["objects"]:
         obj = math_object(item)
         if obj.id in project.objects or obj.name in project.names:
@@ -78,11 +94,13 @@ def _loads(text: str) -> Project:
         def check_scope(node, scope):
             if node.kind == "symbol" and node.value not in scope:
                 raise ValueError("Unbound symbol in project")
-            if node.kind == "integral":
-                body, variable, lower, upper = node.args
+            if node.kind in ("integral", "fold"):
+                body, variable, lower, upper, *extra = node.args
                 check_scope(body, scope | {variable.value})
                 check_scope(lower, scope)
                 check_scope(upper, scope)
+                for arg in extra:
+                    check_scope(arg, scope)
             else:
                 for arg in node.args:
                     check_scope(arg, scope)

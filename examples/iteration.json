@@ -1,0 +1,314 @@
+{
+  "schema_version": 2,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    },
+    {
+      "id": "builtin:gamma",
+      "name": "gamma",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:gamma",
+      "notation": ""
+    }
+  ],
+  "constructions": [
+    {
+      "id": "integer",
+      "kind": "iteration",
+      "description": "Finite nonnegative integer composition; no fractional extension"
+    },
+    {
+      "id": "builtin:rl-integral",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville integral; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:rl-derivative",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville derivative; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:caputo-derivative",
+      "kind": "fractional",
+      "description": "Left Caputo derivative; lower endpoint zero; admissible power functions"
+    },
+    {
+      "id": "positive-power",
+      "kind": "iteration",
+      "description": "On x>0: the chosen family F_t(x)=x^(p^t), p>0"
+    },
+    {
+      "id": "translation",
+      "kind": "iteration",
+      "description": "On the reals: the family F_t(x)=x+c*t"
+    },
+    {
+      "id": "positive-scaling",
+      "kind": "iteration",
+      "description": "The family F_t(x)=a^t*x, a>0"
+    }
+  ],
+  "objects": [
+    {
+      "id": "dbc81d04-4aac-4fec-bb71-ad18e76137e8",
+      "name": "f",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:700ceca5-7575-443c-8aaf-e749ce6de0cf",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:pow",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "x:700ceca5-7575-443c-8aaf-e749ce6de0cf",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "integer",
+            "value": "2",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "f(x) = x^2",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "PositiveReals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "684baa31-f5b1-4667-85a6-01189f431885",
+      "name": "half",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:88bfff87-2254-4759-a2d4-c1aaea3a7d91",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "iterate",
+        "value": "dbc81d04-4aac-4fec-bb71-ad18e76137e8",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "1",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "-1",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:88bfff87-2254-4759-a2d4-c1aaea3a7d91",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": [
+          [
+            "family",
+            "positive-power"
+          ]
+        ]
+      },
+      "original_definition": "half(x) = Iterate(f, 1/2, x, \"positive-power\")",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "PositiveReals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [
+        "dbc81d04-4aac-4fec-bb71-ad18e76137e8"
+      ],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "ef222210-619a-458f-a891-c962354b5a8b",
+      "name": "twice",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:8f34b3a9-9e66-4e4c-b239-3e1144c039a7",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "call",
+        "value": "684baa31-f5b1-4667-85a6-01189f431885",
+        "args": [
+          {
+            "kind": "call",
+            "value": "684baa31-f5b1-4667-85a6-01189f431885",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "x:8f34b3a9-9e66-4e4c-b239-3e1144c039a7",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "twice(x) = half(half(x))",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "PositiveReals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [
+        "684baa31-f5b1-4667-85a6-01189f431885"
+      ],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 1,
+    "view": {
+      "name": "twice",
+      "mode": "exact",
+      "coordinate": "1",
+      "lower": "0.25",
+      "upper": "3",
+      "x_scale": "linear",
+      "y_scale": "linear",
+      "digits": 30,
+      "gamma_factorial": false,
+      "max_points": 1000
+    }
+  }
+}
