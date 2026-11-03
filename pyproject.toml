@@ -4,13 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mathsandbox"
-version = "0.1.0"
-description = "A semantic mathematical research core"
+version = "0.2.0"
+description = "A local mathematical workbench with a semantic research core"
 requires-python = ">=3.11"
-dependencies = ["sympy>=1.13,<2"]
+dependencies = ["sympy>=1.13,<2", "mpmath>=1.3,<1.4"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10"]
+workbench = ["plotly>=6,<7"]
+
+[project.scripts]
+mathsandbox = "mathsandbox.ui.server:main"
+
+[tool.setuptools.package-data]
+mathsandbox = ["py.typed", "ui/*.html"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

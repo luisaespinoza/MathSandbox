@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    }
+  ],
+  "objects": [
+    {
+      "id": "c86dccfc-6529-4fb5-8065-7bf06295a1d7",
+      "name": "f",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:041e2b50-738e-4ca2-978c-666b1ceba76c",
+          "args": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:factorial",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "x:041e2b50-738e-4ca2-978c-666b1ceba76c",
+            "args": []
+          }
+        ]
+      },
+      "original_definition": "f(x) = factorial(x)",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 1,
+    "view": {
+      "name": "f",
+      "mode": "exact",
+      "coordinate": "1",
+      "lower": "1",
+      "upper": "30",
+      "x_scale": "linear",
+      "y_scale": "factorial",
+      "digits": 30,
+      "gamma_factorial": true,
+      "max_points": 1000
+    }
+  }
+}

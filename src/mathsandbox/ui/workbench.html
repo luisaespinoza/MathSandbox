@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MathSandbox · Workbench</title>
+<script src="/plotly.js"></script>
+<style>
+:root{font-family:system-ui,sans-serif;color:#182f32;background:#f2f4f0}*{box-sizing:border-box}body{margin:0}header{padding:20px 30px;background:#163c3b;color:white;display:flex;align-items:center;gap:18px}header h1{font-size:22px;margin:0}header span{opacity:.7;font-size:13px}.toolbar{margin-left:auto;display:flex;gap:8px}button,.upload{background:#24665f;color:white;border:0;border-radius:6px;padding:10px 15px;cursor:pointer;font:inherit;font-size:13px}header button,header .upload{background:#ffffff1c}button:hover,.upload:hover{filter:brightness(1.15)}button:disabled{opacity:.5;cursor:wait}main{display:grid;grid-template-columns:360px minmax(0,1fr);gap:20px;padding:24px;max-width:1600px;margin:auto}section{min-width:0;background:white;border:1px solid #dce3dc;border-radius:10px;padding:20px}h2{font-size:16px;margin:0 0 14px}h3{font-size:14px}textarea,input,select{font:inherit;width:100%;padding:9px;border:1px solid #c9d3cc;border-radius:5px;background:white;color:#182f32}textarea{font:14px/1.65 ui-monospace,monospace;min-height:210px;resize:vertical}label{display:block;font-size:12px;font-weight:600;margin-bottom:6px}.help{font-size:12px;line-height:1.6;color:#5a6d6a}.row{display:flex;gap:10px;margin-bottom:14px}.row>div{flex:1;min-width:0}.full{width:100%}.examples{display:flex;gap:8px;margin:12px 0}.examples button{background:#edf3ef;color:#24665f;font-size:12px}#objects{list-style:none;padding:0;margin:0}#objects li{padding:10px 0;border-top:1px solid #e8eeea;cursor:pointer;font:13px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}#objects small{display:block;color:#607b72;font:11px system-ui}.right{min-width:0;display:flex;flex-direction:column;gap:18px}#plot{height:430px;width:100%;min-width:0;overflow:hidden}.badge{display:inline-block;font-size:11px;background:#e4f1e9;color:#275847;padding:4px 8px;border-radius:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 ui-monospace,monospace;margin:12px 0}#metadata{font-size:11px;color:#5a6d6a}#message{padding:0 24px;color:#8b341f;min-height:20px;font-size:14px;white-space:pre-wrap}#warnings{font-size:12px;line-height:1.6;color:#835d23;white-space:pre-wrap}details{font-size:12px}summary{cursor:pointer;color:#4b6a60}.check{display:flex;align-items:center;gap:8px;margin-bottom:14px}.check input{width:auto}footer{padding:0 24px 24px;font-size:12px;color:#60736d}@media(max-width:850px){main{grid-template-columns:1fr;padding:12px}header{padding:16px;flex-wrap:wrap}.toolbar{margin-left:0}#plot{height:350px}}
+@media(max-width:600px){.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.row>div{min-width:0}}
+</style>
+</head>
+<body>
+<header><h1>MathSandbox</h1><span>A1 · LOCAL WORKBENCH</span><div class="toolbar"><button id="save">Save project</button><label class="upload" style="margin:0">Open project<input type="file" id="open" accept=".json,application/json" hidden></label></div></header>
+<p id="message" role="status" aria-live="polite"></p>
+<main>
+<section>
+<h2>Definitions</h2><p class="help">One definition per line. Apply adds or edits functions; omitted definitions are retained. Click a function below to inspect it.</p>
+<textarea id="definitions" aria-label="Function definitions" spellcheck="false"></textarea>
+<button id="apply" class="full">Apply definitions</button>
+<div class="examples"><button id="composition">Composition example</button><button id="factorial">Factorial example</button></div>
+<ul id="objects"></ul>
+<details><summary>Supported syntax</summary><p class="help">Integers, rational arithmetic, ^, sin, cos, exp, log, factorial, named calls, Integral(body, (t, lower, upper)), and diff(body, x). Use one real parameter for plotting. Extra contexts and custom operators remain formal.</p></details>
+</section>
+<div class="right">
+<section>
+<h2>Inspect &amp; evaluate</h2>
+<div class="row"><div><label for="function">Function</label><select id="function"></select></div><div><label for="mode">Mode</label><select id="mode"><option value="exact">Exact symbolic</option><option value="numeric">Numeric value</option><option value="unevaluated">Keep unevaluated</option></select></div><div><label for="digits">Decimal digits</label><input id="digits" type="number" min="15" max="100" value="30"></div><div><label for="coordinate">Evaluate at x</label><input id="coordinate" value="1" inputmode="decimal"></div></div>
+<span id="status" class="badge">Ready</span><pre id="expression"></pre><pre id="numeric"></pre>
+<details><summary>Context &amp; provenance</summary><pre id="metadata"></pre></details>
+</section>
+<section>
+<h2>Function view <span class="badge">Numerically sampled · exploratory</span></h2>
+<div class="row"><div><label for="lower">Lower bound</label><input id="lower" value="-5"></div><div><label for="upper">Upper bound</label><input id="upper" value="5"></div><div><label for="x_scale">Horizontal coordinates</label><select id="x_scale"></select></div><div><label for="y_scale">Vertical coordinates</label><select id="y_scale"></select></div></div>
+<label class="check"><input type="checkbox" id="gamma_factorial">Use factorial(x) = Gamma(x+1) for real x ≥ 0</label>
+<div class="row"><button id="refresh">Refresh view</button><button id="ordinary">Ordinary axes</button></div>
+<p id="scalehelp" class="help"></p><div id="plot" aria-label="Function plot"></div><div id="warnings" aria-live="polite"></div>
+<p class="help">Zoom and pan in the chart. Hover to inspect original values. Coordinate views never change definitions. Refinement is heuristic; finite sampling cannot certify continuity or an identity. Singularities and excluded values are omitted.</p>
+</section>
+</div>
+</main>
+<footer>Runs on this computer. Save your project before closing; there is no autosave. A symbolic result is a backend computation, not an independently checked proof.</footer>
+<script>
+const token='__TOKEN__', $=id=>document.getElementById(id);
+const controls=['function','mode','digits','coordinate','lower','upper','x_scale','y_scale','gamma_factorial'];
+let dirty=false,busy=false;
+new ResizeObserver(()=>{const chart=$('plot');if(chart.data)Plotly.Plots.resize(chart);}).observe($('plot'));
+for(const id of ['x_scale','y_scale'])for(const value of ['linear','log','symlog','factorial'])$(id).add(new Option(value,value));
+async function api(path,data){const response=await fetch(path,data===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-MathSandbox-Token':token},body:JSON.stringify(data)});const body=await response.json();if(!response.ok)throw Error(body.error||response.statusText);return body;}
+async function task(action){if(busy)return;busy=true;document.querySelectorAll('button,input,select,textarea').forEach(el=>el.disabled=true);$('message').textContent='Computing…';try{await action();$('message').textContent='';}catch(error){$('message').textContent=error.message;if($('expression').textContent==='Computing…')$('expression').textContent='No result for this request.';}finally{busy=false;document.querySelectorAll('button,input,select,textarea').forEach(el=>el.disabled=false);}}
+function state(data){$('definitions').value=data.objects.map(o=>o.definition).join('\n');$('function').replaceChildren();$('objects').replaceChildren();for(const obj of data.objects){$('function').add(new Option(obj.name,obj.name));const li=document.createElement('li');li.textContent=obj.definition;const note=document.createElement('small');note.textContent=`Revision ${obj.revision} · depends on ${obj.dependencies.join(', ')||'no other functions'}`;li.append(note);li.onclick=()=>task(async()=>{$('function').value=obj.name;await render();});$('objects').append(li);}for(const id of controls){const value=data.view[id==='function'?'name':id];if(value!==undefined){if(id==='gamma_factorial')$(id).checked=value;else $(id).value=value;}}}
+function view(){return {name:$('function').value,mode:$('mode').value,digits:Number($('digits').value),coordinate:$('coordinate').value,lower:$('lower').value,upper:$('upper').value,x_scale:$('x_scale').value,y_scale:$('y_scale').value,gamma_factorial:$('gamma_factorial').checked};}
+async function render(){
+ const v=view();$('warnings').textContent='';$('numeric').textContent='';$('expression').textContent='Computing…';$('status').textContent='Pending';Plotly.purge('plot');
+ const result=await api('/api/render',v);
+ $('status').textContent=result.symbolic_status==='exact'?'Exact symbolic computation':'Unevaluated';$('expression').textContent=result.expression;
+ $('metadata').textContent=JSON.stringify({context:result.context,symbolic:result.provenance,numerical:result.plot?{backend:result.plot.backend,version:result.plot.backend_version,source_revision:result.plot.source_revision,digits:v.digits,error_estimate:result.plot.error_estimate}:null},null,2);
+ if(result.point)$('numeric').textContent=result.point.status==='undefined'?`At x = ${v.coordinate}: undefined — ${result.point.message}`:`At x = ${v.coordinate}: ${result.point.value}\nNumerically computed (${v.digits} decimal digits); no certified error bound.`;
+ const descriptions={linear:'ordinary values',log:'log10(value), value > 0',symlog:'sign(value) × log10(1 + |value|)',factorial:'inverse Gamma(t+1), branch t ≥ 1; value ≥ 1'};
+ $('scalehelp').textContent=`Horizontal: ${descriptions[v.x_scale]}. Vertical: ${descriptions[v.y_scale]}.`;
+ if(result.plot){const rows=result.plot.samples;await Plotly.newPlot('plot',[{x:rows.map(r=>r.x),y:rows.map(r=>r.y),customdata:rows.map(r=>[r.raw_x,r.raw_y]),mode:'lines',connectgaps:false,line:{color:'#28776b',width:2},hovertemplate:'x = %{customdata[0]}<br>f(x) ≈ %{customdata[1]}<extra></extra>'}],{margin:{t:15,r:15,b:50,l:65},paper_bgcolor:'white',plot_bgcolor:'white',xaxis:{title:{text:`x · ${v.x_scale}`},gridcolor:'#edf0eb'},yaxis:{title:{text:`f(x) · ${v.y_scale}`},gridcolor:'#edf0eb'},showlegend:false},{responsive:true,displaylogo:false});$('warnings').textContent=result.plot.warnings.join('\n');}
+ if(result.notice)$('warnings').textContent+='\n'+result.notice;
+}
+$('definitions').oninput=()=>{dirty=true;};
+$('apply').onclick=()=>task(async()=>{const selected=$('function').value;const data=await api('/api/define',{definitions:$('definitions').value});data.view={...view(),name:selected};state(data);dirty=true;await render();});
+for(const id of controls)$(id).onchange=()=>task(async()=>{dirty=true;await render();});
+$('refresh').onclick=()=>task(render);
+$('ordinary').onclick=()=>task(async()=>{$('x_scale').value='linear';$('y_scale').value='linear';dirty=true;await render();});
+for(const example of ['composition','factorial'])$(example).onclick=()=>{if(dirty&&!confirm('Replace this session with an example? Save first to keep your changes.'))return;task(async()=>{state(await api('/api/demo',{example}));dirty=false;await render();});};
+$('save').onclick=()=>task(async()=>{const v=view();const dataState=await api('/api/define',{definitions:$('definitions').value});dataState.view={...v,name:v.name};state(dataState);await render();const data=await api('/api/export');const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='mathsandbox-project.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);dirty=false;});
+$('open').onchange=event=>{const file=event.target.files[0];if(!file)return;if(dirty&&!confirm('Replace this session with the selected project?')){event.target.value='';return;}task(async()=>{state(await api('/api/import',{project:await file.text()}));dirty=false;await render();});event.target.value='';};
+window.onbeforeunload=event=>{if(dirty){event.preventDefault();event.returnValue='';}};
+task(async()=>{state(await api('/api/state'));await render();});
+</script>
+</body></html>

@@ -45,7 +45,7 @@ class Translator:
             return sp.Derivative(self.translate(node.args[0]), self.symbol(node.args[1]))
         if node.kind == "operator":
             definition = self.registry.definitions[node.value]
-            functions = {"add": sp.Add, "mul": sp.Mul, "pow": sp.Pow, "sin": sp.sin, "cos": sp.cos, "exp": sp.exp, "log": sp.log}
+            functions = {"add": sp.Add, "mul": sp.Mul, "pow": sp.Pow, "sin": sp.sin, "cos": sp.cos, "exp": sp.exp, "log": sp.log, "factorial": sp.factorial}
             name = node.value.removeprefix("builtin:")
             if (node.value != "builtin:" + name or name not in functions
                     or definition.semantics != "standard:" + name
@@ -54,6 +54,8 @@ class Translator:
             args = tuple(self.translate(a) for a in node.args)
             # A0 does not yet model exceptional sets or prove positivity. Refuse
             # transformations that could erase a pole or select a complex branch.
+            if name == "factorial" and not (isinstance(args[0], sp.Integer) and args[0] >= 0):
+                raise IncompatibleSemantics("Symbolic factorial needs an explicit extension")
             if name == "log":
                 raise IncompatibleSemantics("Logarithm needs a licensed domain")
             if name == "pow":
