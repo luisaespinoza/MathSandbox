@@ -1,0 +1,345 @@
+{
+  "schema_version": 2,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    },
+    {
+      "id": "builtin:gamma",
+      "name": "gamma",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:gamma",
+      "notation": ""
+    }
+  ],
+  "constructions": [
+    {
+      "id": "integer",
+      "kind": "iteration",
+      "description": "Finite nonnegative integer composition; no fractional extension"
+    },
+    {
+      "id": "builtin:rl-integral",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville integral; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:rl-derivative",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville derivative; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:caputo-derivative",
+      "kind": "fractional",
+      "description": "Left Caputo derivative; lower endpoint zero; admissible power functions"
+    },
+    {
+      "id": "positive-power",
+      "kind": "iteration",
+      "description": "On x>0: the chosen family F_t(x)=x^(p^t), p>0"
+    },
+    {
+      "id": "translation",
+      "kind": "iteration",
+      "description": "On the reals: the family F_t(x)=x+c*t"
+    },
+    {
+      "id": "positive-scaling",
+      "kind": "iteration",
+      "description": "The family F_t(x)=a^t*x, a>0"
+    }
+  ],
+  "objects": [
+    {
+      "id": "e3db39f3-dc21-48e4-9569-3be5344bf4aa",
+      "name": "f",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "z:9fb75abd-0cb5-4648-a60c-5b779c75beed",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:mul",
+        "args": [
+          {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:pow",
+            "args": [
+              {
+                "kind": "operator",
+                "value": "builtin:add",
+                "args": [
+                  {
+                    "kind": "operator",
+                    "value": "builtin:pow",
+                    "args": [
+                      {
+                        "kind": "symbol",
+                        "value": "z:9fb75abd-0cb5-4648-a60c-5b779c75beed",
+                        "args": [],
+                        "conventions": []
+                      },
+                      {
+                        "kind": "integer",
+                        "value": "2",
+                        "args": [],
+                        "conventions": []
+                      }
+                    ],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "1",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              },
+              {
+                "kind": "integer",
+                "value": "-1",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "f(z) = 1/(z^2+1)",
+      "context": {
+        "universe_id": "standard-complex",
+        "domain": "Complexes",
+        "codomain": "Complexes",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "5c8e8543-d53b-4c74-9cbc-46f7cab4b5db",
+      "name": "logarithm",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "z:eb3c12bd-5349-4c80-8c65-44c1291ef2d2",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:log",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "z:eb3c12bd-5349-4c80-8c65-44c1291ef2d2",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "logarithm(z) = log(z)",
+      "context": {
+        "universe_id": "standard-complex",
+        "domain": "Complexes",
+        "codomain": "Complexes",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "e3188b2c-74b2-4ae0-8af4-ed2340899fb1",
+      "name": "root",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "z:698649b5-3a4b-41cf-973b-afdcf051d42b",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:pow",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "z:698649b5-3a4b-41cf-973b-afdcf051d42b",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "1",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "-1",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "root(z) = z^(1/2)",
+      "context": {
+        "universe_id": "standard-complex",
+        "domain": "Complexes",
+        "codomain": "Complexes",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 2,
+    "view": {
+      "name": "f",
+      "mode": "numeric",
+      "coordinate": "1",
+      "lower": "-2",
+      "upper": "2",
+      "x_scale": "linear",
+      "y_scale": "linear",
+      "digits": 30,
+      "gamma_factorial": false,
+      "max_points": 1000,
+      "geometry": "complex-compare",
+      "imaginary_lower": "-2",
+      "imaginary_upper": "2",
+      "imag_coordinate": "0",
+      "resolution": 41,
+      "height_scale": "linear",
+      "prime": 5,
+      "padic_digits": 4
+    }
+  }
+}

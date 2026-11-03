@@ -184,6 +184,8 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert status == 200 and "Apply definitions" in html and "__TOKEN__" not in html
             status, js = request("GET", "/plotly.js")
             assert status == 200 and "plotly" in js.lower()
+            status, js = request("GET", "/geometry.js")
+            assert status == 200 and "renderGeometry" in js
             assert request("POST", "/api/define", {"definitions": "g(x)=sin(2*x)"}, token=False)[0] == 403
             assert request("POST", "/api/define", {"definitions": "g(x)=sin(2*x)"})[0] == 200
             status, text = request("POST", "/api/render", {**server.workbench.view, "mode": "numeric"})
@@ -192,12 +194,21 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert result["plot"]["samples"]
             assert float(result["point"]["value"]) == pytest.approx(math.sin(2)**3)
             status, saved = request("GET", "/api/export")
-            assert status == 200 and json.loads(saved)["workbench"]["schema_version"] == 1
+            assert status == 200 and json.loads(saved)["workbench"]["schema_version"] == 2
             assert request("POST", "/api/import", {"project": saved})[0] == 200
             assert request("POST", "/api/import", {"project": "not JSON"})[0] == 400
             assert request("POST", "/api/demo", {"example": "factorial"})[0] == 200
             status, text = request("POST", "/api/render", server.workbench.view)
             assert status == 200 and any(r["y"] is not None for r in json.loads(text)["plot"]["samples"])
+            assert request("POST", "/api/demo", {"example": "complex"})[0] == 200
+            status, text = request("POST", "/api/render", {**server.workbench.view, "resolution": 21})
+            assert status == 200 and json.loads(text)["plot"]["kind"] == "complex"
+            assert request("POST", "/api/demo", {"example": "padic"})[0] == 200
+            status, text = request("POST", "/api/render", server.workbench.view)
+            assert status == 200 and json.loads(text)["plot"]["valuation"] == 3
+            status, text = request("GET", "/api/export")
+            assert status == 200 and json.loads(text)["workbench"]["view_records"][-1]["norm"] == "1/125"
+
         finally:
             client.close()
             server.shutdown()

@@ -1,8 +1,8 @@
-# MathSandbox — A2 generalized operators
+# MathSandbox — A3 mathematical geometry
 
 A local browser workbench and Python library for named mathematical definitions,
 exact symbolic composition, numerical exploration, and reproducible project records. The project specification is in
-[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A2; A3–A5 remain deferred.
+[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A3; A4–A5 remain deferred.
 
 ## Install and run
 
@@ -23,7 +23,8 @@ Installation needs access to PyPI; normal use needs no network or account.
 SymPy (BSD license) performs symbolic algebra and uses mpmath; pytest is only a
 development dependency. The optional `workbench` extra supplies Plotly (MIT
 license), with all JavaScript served from its installed package. No desktop GUI
-toolkit, CDN, account, or external proof tool is needed. The math library alone
+toolkit, CDN, account, or external proof tool is needed. The 3D views require a
+WebGL-capable browser. The math library alone
 can still be installed with `python -m pip install -e '.[dev]'`.
 
 The example defines:
@@ -77,14 +78,13 @@ server. Use one browser tab per running session; multiple tabs share its project
   axes** restores both axes in one click without changing definitions.
 - **Save project** downloads versioned JSON, including current definitions,
   history, symbolic provenance, and workbench view/precision/extension settings.
-  Pending editor changes are applied before saving. **Open project** accepts A0
-  projects and A1 exports. Invalid imports leave the session intact. Sample arrays
+  Pending editor changes are applied before saving. **Open project** accepts existing A0–A3 projects. Invalid imports leave the session intact. Sample arrays
   and point values are recomputed on open rather than trusted as certificates.
   There is no autosave; save before closing or replacing the session.
 
 The interface and plotting assets work offline after installation. Projects remain
 on your computer; this is a single-session development application, not a hosted
-service. Only one-parameter real functions are plottable. A2 constructions can be inspected and sampled when their stated domains and
+service. Views support a single real, complex, or rational parameter in their respective adapters. A2 constructions can be inspected and sampled when their stated domains and
 backend obligations are satisfied.
 
 ### Coordinate views and factorial convention
@@ -124,6 +124,23 @@ undefined at zero. It never uses symbolic cancellation to widen a domain. Custom
 operators and unsupported contexts remain unsupported. An integral or derivative requires a licensed
 exact symbolic representation before numerical sampling; there is no new numerical
 integration or differentiation algorithm in A1.
+
+## A3 complex and p-adic geometry
+
+Use **Complex geometry** for domain coloring, a phase-colored magnitude surface,
+and a Riemann-sphere comparison of the same function. Use **p-adic geometry** for
+exact rational valuation/norm and finite residue trees, starting with
+`v_5(125)=3`. Complex and rational contexts are selected explicitly; original
+branches, definitions, and mathematical provenance are retained.
+
+The Geometry selector switches representations. Complex views expose Re/Im bounds,
+grid resolution, and linear/log magnitude height. Rational views expose prime and
+unit-digit precision; enter an exact integer or `n/d`. The p-adic tree represents
+ultrametric residue containment, not Euclidean scaling.
+
+See [A3 geometry and safeguards](docs/A3_GEOMETRY.md) for branch masks, infinity and
+zero conventions, exactness labels, saved settings, and limitations. Run
+`python examples/advanced_geometry.py` for a browser-free demonstration.
 
 ## A2 generalized operators
 
@@ -201,7 +218,7 @@ isolation, timeout preservation, and save/load. A2 tests cover finite towers, fo
 iteration family identities, domain gates, resource limits, and registry/JSON
 preservation. These checks establish the implemented vertical slices; they do not certify arbitrary integrations or custom mathematics.
 
-Deferred to A3–A5: advanced geometry, analytic continuation,
+Deferred to A4–A5: analytic continuation,
 transformation discovery, and axiom/model/proof engines. General free symbols,
 parameterized domain proofs, matrices, recurrences, forward references, and
 arbitrary user-supplied executable evaluators are not supported yet. Contexts

@@ -39,6 +39,8 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/":
             page = files("mathsandbox.ui").joinpath("workbench.html").read_text(encoding="utf-8")
             self.send(page.replace("__TOKEN__", self.server.token), "text/html")
+        elif self.path == "/geometry.js":
+            self.send(files("mathsandbox.ui").joinpath("geometry.js").read_text(encoding="utf-8"), "application/javascript")
         elif self.path == "/plotly.js":
             from plotly.offline import get_plotlyjs
             self.send(get_plotlyjs(), "application/javascript")
@@ -85,7 +87,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="MathSandbox local A2 workbench")
+    parser = argparse.ArgumentParser(description="MathSandbox local A3 workbench")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--no-browser", action="store_true")
     args = parser.parse_args()
@@ -95,7 +97,7 @@ def main():
         parser.error("Install the workbench extra: python -m pip install -e '.[workbench,dev]'")
     with WorkbenchServer(("127.0.0.1", args.port)) as server:
         address = f"http://127.0.0.1:{server.server_port}"
-        print(f"MathSandbox A2 running at {address} — Ctrl+C to stop", flush=True)
+        print(f"MathSandbox A3 running at {address} — Ctrl+C to stop", flush=True)
         if not args.no_browser:
             webbrowser.open(address)
         try:
