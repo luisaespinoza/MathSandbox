@@ -1,0 +1,660 @@
+{
+  "schema_version": 1,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    }
+  ],
+  "objects": [
+    {
+      "id": "5187827d-7796-496f-9269-1825e1c2317d",
+      "name": "f",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:e115dd49-e6a6-49bc-841d-4a2862e59e30",
+          "args": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:pow",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "x:e115dd49-e6a6-49bc-841d-4a2862e59e30",
+            "args": []
+          },
+          {
+            "kind": "integer",
+            "value": "3",
+            "args": []
+          }
+        ]
+      },
+      "original_definition": "f(x) = x^3",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b",
+      "name": "g",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:1ccaba20-ccfa-46ab-8f84-8591ceb8aa3b",
+          "args": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:sin",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "x:1ccaba20-ccfa-46ab-8f84-8591ceb8aa3b",
+            "args": []
+          }
+        ]
+      },
+      "original_definition": "g(x) = sin(x)",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+      "name": "h",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:00758be8-e86b-43f0-bf69-060746a1ff3a",
+          "args": []
+        }
+      ],
+      "expression": {
+        "kind": "integral",
+        "value": "definite",
+        "args": [
+          {
+            "kind": "call",
+            "value": "5187827d-7796-496f-9269-1825e1c2317d",
+            "args": [
+              {
+                "kind": "call",
+                "value": "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b",
+                "args": [
+                  {
+                    "kind": "symbol",
+                    "value": "t:71e84ed1-638d-414d-835e-5b0df69a6367",
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "symbol",
+            "value": "t:71e84ed1-638d-414d-835e-5b0df69a6367",
+            "args": []
+          },
+          {
+            "kind": "integer",
+            "value": "0",
+            "args": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:00758be8-e86b-43f0-bf69-060746a1ff3a",
+            "args": []
+          }
+        ]
+      },
+      "original_definition": "h(x) = Integral(f(g(t)), (t, 0, x))",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [
+        "5187827d-7796-496f-9269-1825e1c2317d",
+        "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b"
+      ],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "99c71bd6-0c23-4edf-8edf-c3191e3ee29e",
+      "name": "p",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:0e63fe2a-1518-46a5-b589-89d917a350ea",
+          "args": []
+        }
+      ],
+      "expression": {
+        "kind": "derivative",
+        "value": "diff",
+        "args": [
+          {
+            "kind": "call",
+            "value": "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "x:0e63fe2a-1518-46a5-b589-89d917a350ea",
+                "args": []
+              }
+            ]
+          },
+          {
+            "kind": "symbol",
+            "value": "x:0e63fe2a-1518-46a5-b589-89d917a350ea",
+            "args": []
+          }
+        ]
+      },
+      "original_definition": "p(x) = diff(h(x), x)",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [
+        "4815c0bd-0c1d-4c45-973e-d855cec2ec84"
+      ],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [
+    {
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:mul",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "operator",
+                "value": "builtin:mul",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "1",
+                    "args": []
+                  },
+                  {
+                    "kind": "operator",
+                    "value": "builtin:pow",
+                    "args": [
+                      {
+                        "kind": "integer",
+                        "value": "3",
+                        "args": []
+                      },
+                      {
+                        "kind": "integer",
+                        "value": "-1",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "operator",
+                    "value": "builtin:add",
+                    "args": [
+                      {
+                        "kind": "integer",
+                        "value": "-1",
+                        "args": []
+                      },
+                      {
+                        "kind": "operator",
+                        "value": "builtin:cos",
+                        "args": [
+                          {
+                            "kind": "symbol",
+                            "value": "x:00758be8-e86b-43f0-bf69-060746a1ff3a",
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:add",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "2",
+                "args": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:cos",
+                "args": [
+                  {
+                    "kind": "symbol",
+                    "value": "x:00758be8-e86b-43f0-bf69-060746a1ff3a",
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "status": "exact",
+      "provenance": {
+        "source_id": "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+            1
+          ],
+          [
+            "5187827d-7796-496f-9269-1825e1c2317d",
+            1
+          ],
+          [
+            "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b",
+            1
+          ]
+        ],
+        "method": "symbolic-evaluation",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-real",
+          "domain": "Reals",
+          "codomain": "Reals",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        }
+      }
+    },
+    {
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:pow",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:sin",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "x:0e63fe2a-1518-46a5-b589-89d917a350ea",
+                "args": []
+              }
+            ]
+          },
+          {
+            "kind": "integer",
+            "value": "3",
+            "args": []
+          }
+        ]
+      },
+      "status": "exact",
+      "provenance": {
+        "source_id": "99c71bd6-0c23-4edf-8edf-c3191e3ee29e",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+            1
+          ],
+          [
+            "5187827d-7796-496f-9269-1825e1c2317d",
+            1
+          ],
+          [
+            "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b",
+            1
+          ],
+          [
+            "99c71bd6-0c23-4edf-8edf-c3191e3ee29e",
+            1
+          ]
+        ],
+        "method": "symbolic-evaluation",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-real",
+          "domain": "Reals",
+          "codomain": "Reals",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        }
+      }
+    }
+  ],
+  "representations": {
+    "4815c0bd-0c1d-4c45-973e-d855cec2ec84": {
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:mul",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "operator",
+                "value": "builtin:mul",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "1",
+                    "args": []
+                  },
+                  {
+                    "kind": "operator",
+                    "value": "builtin:pow",
+                    "args": [
+                      {
+                        "kind": "integer",
+                        "value": "3",
+                        "args": []
+                      },
+                      {
+                        "kind": "integer",
+                        "value": "-1",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "operator",
+                    "value": "builtin:add",
+                    "args": [
+                      {
+                        "kind": "integer",
+                        "value": "-1",
+                        "args": []
+                      },
+                      {
+                        "kind": "operator",
+                        "value": "builtin:cos",
+                        "args": [
+                          {
+                            "kind": "symbol",
+                            "value": "x:00758be8-e86b-43f0-bf69-060746a1ff3a",
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:add",
+            "args": [
+              {
+                "kind": "integer",
+                "value": "2",
+                "args": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:cos",
+                "args": [
+                  {
+                    "kind": "symbol",
+                    "value": "x:00758be8-e86b-43f0-bf69-060746a1ff3a",
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "status": "exact",
+      "provenance": {
+        "source_id": "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+            1
+          ],
+          [
+            "5187827d-7796-496f-9269-1825e1c2317d",
+            1
+          ],
+          [
+            "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b",
+            1
+          ]
+        ],
+        "method": "symbolic-evaluation",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-real",
+          "domain": "Reals",
+          "codomain": "Reals",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        }
+      }
+    },
+    "99c71bd6-0c23-4edf-8edf-c3191e3ee29e": {
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:pow",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:sin",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "x:0e63fe2a-1518-46a5-b589-89d917a350ea",
+                "args": []
+              }
+            ]
+          },
+          {
+            "kind": "integer",
+            "value": "3",
+            "args": []
+          }
+        ]
+      },
+      "status": "exact",
+      "provenance": {
+        "source_id": "99c71bd6-0c23-4edf-8edf-c3191e3ee29e",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "4815c0bd-0c1d-4c45-973e-d855cec2ec84",
+            1
+          ],
+          [
+            "5187827d-7796-496f-9269-1825e1c2317d",
+            1
+          ],
+          [
+            "6f5ab0ed-1fae-4b0c-8e86-b403f5c7576b",
+            1
+          ],
+          [
+            "99c71bd6-0c23-4edf-8edf-c3191e3ee29e",
+            1
+          ]
+        ],
+        "method": "symbolic-evaluation",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-real",
+          "domain": "Reals",
+          "codomain": "Reals",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        }
+      }
+    }
+  }
+}
