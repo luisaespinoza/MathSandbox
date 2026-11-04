@@ -39,6 +39,8 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/":
             page = files("mathsandbox.ui").joinpath("workbench.html").read_text(encoding="utf-8")
             self.send(page.replace("__TOKEN__", self.server.token), "text/html")
+        elif self.path == "/axioms.js":
+            self.send(files("mathsandbox.ui").joinpath("axioms.js").read_text(encoding="utf-8"), "application/javascript")
         elif self.path == "/analysis.js":
             self.send(files("mathsandbox.ui").joinpath("analysis.js").read_text(encoding="utf-8"), "application/javascript")
         elif self.path == "/geometry.js":
@@ -67,7 +69,13 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(data, dict):
                 raise ValueError("Expected a JSON object")
             workbench = self.server.workbench
-            if self.path == "/api/define":
+            if self.path.startswith("/api/axioms/"):
+                actions={"create":workbench.axiom_create,"select":workbench.axiom_select,"edit":workbench.axiom_edit,
+                         "run":workbench.axiom_run,"fork":workbench.axiom_fork,"apply-repair":workbench.axiom_apply_repair}
+                action=actions.get(self.path.removeprefix("/api/axioms/"))
+                if action is None:raise ValueError("Unknown axiom action")
+                result=action(data)
+            elif self.path == "/api/define":
                 result = workbench.apply(data["definitions"])
             elif self.path == "/api/domain":
                 result = workbench.set_domain(data["name"], data["domain"])
@@ -95,7 +103,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="MathSandbox local A4 workbench")
+    parser = argparse.ArgumentParser(description="MathSandbox local A5 workbench")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--no-browser", action="store_true")
     args = parser.parse_args()
@@ -105,7 +113,7 @@ def main():
         parser.error("Install the workbench extra: python -m pip install -e '.[workbench,dev]'")
     with WorkbenchServer(("127.0.0.1", args.port)) as server:
         address = f"http://127.0.0.1:{server.server_port}"
-        print(f"MathSandbox A4 running at {address} — Ctrl+C to stop", flush=True)
+        print(f"MathSandbox A5 running at {address} — Ctrl+C to stop", flush=True)
         if not args.no_browser:
             webbrowser.open(address)
         try:

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mathsandbox"
-version = "0.5.0"
+version = "0.6.0"
 description = "A local mathematical workbench with a semantic research core"
 requires-python = ">=3.11"
 dependencies = ["sympy>=1.13,<2", "mpmath>=1.3,<1.4"]
@@ -12,6 +12,7 @@ dependencies = ["sympy>=1.13,<2", "mpmath>=1.3,<1.4"]
 [project.optional-dependencies]
 dev = ["pytest>=8,<10"]
 workbench = ["plotly>=6,<7"]
+axioms = ["z3-solver>=4.13,<5"]
 
 [project.scripts]
 mathsandbox = "mathsandbox.ui.server:main"

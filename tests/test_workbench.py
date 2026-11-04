@@ -188,6 +188,12 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert status == 200 and "renderGeometry" in js
             status, js = request("GET", "/analysis.js")
             assert status == 200 and "showAnalysis" in js
+            status, js = request("GET", "/axioms.js")
+            assert status == 200 and "axiomBind" in js
+            assert request("POST", "/api/axioms/create", {"template":"projection"}, token=False)[0] == 403
+            status, text = request("POST", "/api/axioms/create", {"template":"projection"})
+            assert status == 200 and json.loads(text)["active"]["branch_policy"] == "uninterpreted-algebra"
+            assert request("POST", "/api/axioms/unknown", {})[0] == 400
             assert request("POST", "/api/define", {"definitions": "g(x)=sin(2*x)"}, token=False)[0] == 403
             assert request("POST", "/api/define", {"definitions": "g(x)=sin(2*x)"})[0] == 200
             status, text = request("POST", "/api/render", {**server.workbench.view, "mode": "numeric"})
@@ -196,7 +202,7 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert result["plot"]["samples"]
             assert float(result["point"]["value"]) == pytest.approx(math.sin(2)**3)
             status, saved = request("GET", "/api/export")
-            assert status == 200 and json.loads(saved)["workbench"]["schema_version"] == 3
+            assert status == 200 and json.loads(saved)["workbench"]["schema_version"] == 4
             assert request("POST", "/api/import", {"project": saved})[0] == 200
             assert request("POST", "/api/import", {"project": "not JSON"})[0] == 400
             assert request("POST", "/api/demo", {"example": "factorial"})[0] == 200

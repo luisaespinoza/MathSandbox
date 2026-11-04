@@ -21,6 +21,9 @@ class Project:
         self.registry = OperatorRegistry()
         self.constructions = ConstructionRegistry()
         self.objects: dict[str, MathObject] = {}
+        self.universes = {}
+        self.logic_records = []
+        self.universe_history = []
         self.transform_registry = TransformationRegistry()
         self.analytic_germs: dict[str, AnalyticGerm] = {}
         self.analysis_records: list[AnalysisRecord] = []

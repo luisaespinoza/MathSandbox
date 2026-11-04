@@ -1,8 +1,8 @@
-# MathSandbox — A4 analytic transformations
+# MathSandbox — A5 axiom laboratory
 
 A local browser workbench and Python library for named mathematical definitions,
 exact symbolic composition, numerical exploration, and reproducible project records. The project specification is in
-[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A4; A5 remains deferred.
+[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A5. The optional axiom laboratory supports bounded contradiction, model, countermodel and protected repair searches; see [A5 semantics](docs/A5_SEMANTICS.md).
 
 ## Install and run
 
@@ -12,10 +12,11 @@ From this checkout:
 ```sh
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[workbench,dev]'
+python -m pip install -e '.[workbench,axioms,dev]'
 mathsandbox
 # After closing the workbench (Ctrl+C in its terminal):
 python examples/composition.py
+python examples/axiom_laboratory.py
 python -m pytest -q
 ```
 
@@ -78,7 +79,7 @@ server. Use one browser tab per running session; multiple tabs share its project
   axes** restores both axes in one click without changing definitions.
 - **Save project** downloads versioned JSON, including current definitions,
   history, symbolic provenance, and workbench view/precision/extension settings.
-  Pending editor changes are applied before saving. **Open project** accepts existing A0–A4 projects. Invalid imports leave the session intact. Sample arrays
+  Pending editor changes are applied before saving. **Open project** accepts existing A0–A5 projects. Invalid imports leave the session intact. Sample arrays
   and point values are recomputed on open rather than trusted as certificates.
   There is no autosave; save before closing or replacing the session.
 
@@ -143,8 +144,7 @@ recomputed rather than trusted as certificates. See
 python examples/analytic_transformations.py
 ```
 
-Core/workbench schema version 3 loads existing version 1/2 files. A4 project files
-require this release. General branch continuation and universal PDE solving are
+Core/workbench schema version 4 loads existing version 1/2/3 files. General branch continuation and universal PDE solving are
 not implemented.
 
 ## A3 complex and p-adic geometry
@@ -181,7 +181,7 @@ python examples/generalized_operators.py
 ```
 
 A2 introduced project schema version 2; version 1 A0/A1 projects still load. The
-current A4 schema is version 3. Construction choices, branches, domains, source revisions,
+current A5 schema is version 4. Construction choices, branches, domains, source revisions,
 and exact-rule provenance survive serialization.
 
 ## A0 contracts
@@ -240,7 +240,8 @@ isolation, timeout preservation, and save/load. A2 tests cover finite towers, fo
 iteration family identities, domain gates, resource limits, and registry/JSON
 preservation. These checks establish the implemented vertical slices; they do not certify arbitrary integrations or custom mathematics.
 
-Deferred to A5: axiom/model/proof engines. General analytic continuation and
+A5 provides bounded axiom/model searches and conditional solver evidence; an
+independent proof checker is deferred. General analytic continuation and
 universal transformation discovery remain outside the implemented subset. General free symbols,
 parameterized domain proofs, matrices, recurrences, forward references, and
 arbitrary user-supplied executable evaluators are not supported yet. Contexts

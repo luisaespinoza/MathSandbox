@@ -7,7 +7,7 @@ from ..core.project import Project, calls
 from ..operators.registry import OperatorDefinition
 from ..operators.constructions import ConstructionDefinition, ConstructionRegistry
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 
 def expression(data: dict) -> Expr:
@@ -52,6 +52,9 @@ def dumps(project: Project) -> str:
             "transform_registry": [asdict(d) for d in project.transform_registry.definitions.values()],
             "analytic_germs": [asdict(g) for g in project.analytic_germs.values()],
             "analysis_records": [asdict(r) for r in project.analysis_records],
+            "universes": [asdict(u) for u in project.universes.values()],
+            "universe_history": [asdict(u) for u in project.universe_history],
+            "logic_records": [asdict(r) for r in project.logic_records],
             "objects": [asdict(o) for o in project.objects.values()],
             "history": [asdict(o) for o in project.history],
             "transformations": [asdict(r) for r in project.transformations],
@@ -61,7 +64,7 @@ def dumps(project: Project) -> str:
 
 def _loads(text: str) -> Project:
     data = json.loads(text)
-    if data.get("schema_version") not in (1, 2, SCHEMA_VERSION):
+    if data.get("schema_version") not in (1, 2, 3, SCHEMA_VERSION):
         raise ValueError("Unsupported project schema version")
     project = Project()
     builtin = dict(project.registry.definitions)
@@ -126,6 +129,8 @@ def _loads(text: str) -> Project:
             project.transformations.append(result)
     from ..analysis.storage import restore
     restore(project, data, expression, provenance)
+    from ..axioms.storage import restore as restore_logic
+    restore_logic(project, data)
     return project
 
 

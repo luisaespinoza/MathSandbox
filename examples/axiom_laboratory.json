@@ -1,0 +1,2364 @@
+{
+  "schema_version": 4,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    },
+    {
+      "id": "builtin:gamma",
+      "name": "gamma",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:gamma",
+      "notation": ""
+    }
+  ],
+  "constructions": [
+    {
+      "id": "integer",
+      "kind": "iteration",
+      "description": "Finite nonnegative integer composition; no fractional extension"
+    },
+    {
+      "id": "builtin:rl-integral",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville integral; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:rl-derivative",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville derivative; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:caputo-derivative",
+      "kind": "fractional",
+      "description": "Left Caputo derivative; lower endpoint zero; admissible power functions"
+    },
+    {
+      "id": "positive-power",
+      "kind": "iteration",
+      "description": "On x>0: the chosen family F_t(x)=x^(p^t), p>0"
+    },
+    {
+      "id": "translation",
+      "kind": "iteration",
+      "description": "On the reals: the family F_t(x)=x+c*t"
+    },
+    {
+      "id": "positive-scaling",
+      "kind": "iteration",
+      "description": "The family F_t(x)=a^t*x, a>0"
+    }
+  ],
+  "transform_registry": [
+    {
+      "id": "builtin:differentiate",
+      "operation": "differentiate",
+      "description": "Symbolic derivative; integration needs reconstruction data",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    },
+    {
+      "id": "builtin:factor",
+      "operation": "factor",
+      "description": "Factor while retaining the original source exclusions",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    },
+    {
+      "id": "builtin:simplify",
+      "operation": "simplify",
+      "description": "Simplify while retaining the original source exclusions",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    }
+  ],
+  "analytic_germs": [],
+  "analysis_records": [],
+  "universes": [
+    {
+      "id": "universe:1ab53d53-ce9f-48fe-bba4-fbc47bdde578",
+      "name": "star-contradiction",
+      "signature": [
+        {
+          "id": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+          "name": "zero",
+          "arity": 0,
+          "kind": "constant",
+          "notation": "0"
+        },
+        {
+          "id": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+          "name": "one",
+          "arity": 0,
+          "kind": "constant",
+          "notation": "1"
+        },
+        {
+          "id": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+          "name": "add",
+          "arity": 2,
+          "kind": "function",
+          "notation": "+"
+        },
+        {
+          "id": "symbol:9f8da88f-30b4-48ef-ac07-823e0751235f",
+          "name": "neg",
+          "arity": 1,
+          "kind": "function",
+          "notation": "\u2212"
+        },
+        {
+          "id": "symbol:f66c057f-93b1-4798-a2fb-3071b3f959f6",
+          "name": "mul",
+          "arity": 2,
+          "kind": "function",
+          "notation": "\u00b7"
+        },
+        {
+          "id": "symbol:ba9f4580-84fd-48df-bde4-dbf8693e79ec",
+          "name": "inv",
+          "arity": 1,
+          "kind": "function",
+          "notation": "inverse"
+        },
+        {
+          "id": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+          "name": "star",
+          "arity": 2,
+          "kind": "function",
+          "notation": "\u22c6"
+        }
+      ],
+      "axioms": [
+        {
+          "id": "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+          "label": "add_assoc",
+          "text": "add(add(a,b),c)=add(a,add(b,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "c",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+          "label": "add_left_zero",
+          "text": "add(0,a)=a",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "variable",
+                "symbol": "a",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+          "label": "add_right_zero",
+          "text": "add(a,0)=a",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "variable",
+                "symbol": "a",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+          "label": "add_left_inverse",
+          "text": "add(neg(a),a)=0",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:9f8da88f-30b4-48ef-ac07-823e0751235f",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:d3ba9194-6539-4619-a55d-872b1316ed30",
+          "label": "add_right_inverse",
+          "text": "add(a,neg(a))=0",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:9f8da88f-30b4-48ef-ac07-823e0751235f",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:0d7e3f53-eaca-4772-906c-8d99341d93ca",
+          "label": "add_commute",
+          "text": "add(a,b)=add(b,a)",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "b",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "b",
+                    "args": []
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+          "label": "distinct",
+          "text": "0!=1",
+          "formula": {
+            "kind": "ne",
+            "terms": [
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+          "label": "star_assoc",
+          "text": "star(star(a,b),c)=star(a,star(b,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "c",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:13879543-764b-41b3-9339-7c233ccb9cc3",
+          "label": "star_left_dist",
+          "text": "star(a,add(b,c))=add(star(a,b),star(a,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:451fe94f-3ea1-404a-ad60-f867e98e8510",
+          "label": "star_right_dist",
+          "text": "star(add(a,b),c)=add(star(a,c),star(b,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "c",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+          "label": "star_10",
+          "text": "star(1,0)=0",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                    "args": []
+                  },
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+          "label": "star_01",
+          "text": "star(0,1)=1",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  },
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        }
+      ],
+      "source_text": "add_assoc: add(add(a,b),c)=add(a,add(b,c))\nadd_left_zero: add(0,a)=a\nadd_right_zero: add(a,0)=a\nadd_left_inverse: add(neg(a),a)=0\nadd_right_inverse: add(a,neg(a))=0\nadd_commute: add(a,b)=add(b,a)\ndistinct: 0!=1\nstar_assoc: star(star(a,b),c)=star(a,star(b,c))\nstar_left_dist: star(a,add(b,c))=add(star(a,b),star(a,c))\nstar_right_dist: star(add(a,b),c)=add(star(a,c),star(b,c))\nstar_10: star(1,0)=0\nstar_01: star(0,1)=1",
+      "revision": 1,
+      "logic": "classical-equality",
+      "branch_policy": "uninterpreted-algebra",
+      "parent_id": null,
+      "sort": "U"
+    },
+    {
+      "id": "universe:194e2421-b3ed-4d23-a1d2-a922d66c1e68",
+      "name": "star-contradiction \u2014 repaired",
+      "signature": [
+        {
+          "id": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+          "name": "zero",
+          "arity": 0,
+          "kind": "constant",
+          "notation": "0"
+        },
+        {
+          "id": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+          "name": "one",
+          "arity": 0,
+          "kind": "constant",
+          "notation": "1"
+        },
+        {
+          "id": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+          "name": "add",
+          "arity": 2,
+          "kind": "function",
+          "notation": "+"
+        },
+        {
+          "id": "symbol:9f8da88f-30b4-48ef-ac07-823e0751235f",
+          "name": "neg",
+          "arity": 1,
+          "kind": "function",
+          "notation": "\u2212"
+        },
+        {
+          "id": "symbol:f66c057f-93b1-4798-a2fb-3071b3f959f6",
+          "name": "mul",
+          "arity": 2,
+          "kind": "function",
+          "notation": "\u00b7"
+        },
+        {
+          "id": "symbol:ba9f4580-84fd-48df-bde4-dbf8693e79ec",
+          "name": "inv",
+          "arity": 1,
+          "kind": "function",
+          "notation": "inverse"
+        },
+        {
+          "id": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+          "name": "star",
+          "arity": 2,
+          "kind": "function",
+          "notation": "\u22c6"
+        }
+      ],
+      "axioms": [
+        {
+          "id": "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+          "label": "add_assoc",
+          "text": "add(add(a,b),c)=add(a,add(b,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "c",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+          "label": "add_left_zero",
+          "text": "add(0,a)=a",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "variable",
+                "symbol": "a",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+          "label": "add_right_zero",
+          "text": "add(a,0)=a",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "variable",
+                "symbol": "a",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+          "label": "add_left_inverse",
+          "text": "add(neg(a),a)=0",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:9f8da88f-30b4-48ef-ac07-823e0751235f",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:d3ba9194-6539-4619-a55d-872b1316ed30",
+          "label": "add_right_inverse",
+          "text": "add(a,neg(a))=0",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:9f8da88f-30b4-48ef-ac07-823e0751235f",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:0d7e3f53-eaca-4772-906c-8d99341d93ca",
+          "label": "add_commute",
+          "text": "add(a,b)=add(b,a)",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "b",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "b",
+                    "args": []
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+          "label": "distinct",
+          "text": "0!=1",
+          "formula": {
+            "kind": "ne",
+            "terms": [
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+          "label": "star_assoc",
+          "text": "star(star(a,b),c)=star(a,star(b,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "variable",
+                    "symbol": "c",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:13879543-764b-41b3-9339-7c233ccb9cc3",
+          "label": "star_left_dist",
+          "text": "star(a,add(b,c))=add(star(a,b),star(a,c))",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "variable",
+                    "symbol": "a",
+                    "args": []
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "application",
+                "symbol": "symbol:619e8664-7f76-4273-ad07-67006587366e",
+                "args": [
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "b",
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "application",
+                    "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "symbol": "a",
+                        "args": []
+                      },
+                      {
+                        "kind": "variable",
+                        "symbol": "c",
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+          "label": "star_10",
+          "text": "star(1,0)=0",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                    "args": []
+                  },
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        },
+        {
+          "id": "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+          "label": "star_01",
+          "text": "star(0,1)=1",
+          "formula": {
+            "kind": "eq",
+            "terms": [
+              {
+                "kind": "application",
+                "symbol": "symbol:0591e8df-f487-41ad-8069-a7617ba57a7d",
+                "args": [
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e2908b6e-83fd-4055-8afc-7960623f8e58",
+                    "args": []
+                  },
+                  {
+                    "kind": "constant",
+                    "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "kind": "constant",
+                "symbol": "symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e",
+                "args": []
+              }
+            ],
+            "operands": [],
+            "symbol": ""
+          },
+          "revision": 1
+        }
+      ],
+      "source_text": "add_assoc: add(add(a,b),c)=add(a,add(b,c))\nadd_left_zero: add(0,a)=a\nadd_right_zero: add(a,0)=a\nadd_left_inverse: add(neg(a),a)=0\nadd_right_inverse: add(a,neg(a))=0\nadd_commute: add(a,b)=add(b,a)\ndistinct: 0!=1\nstar_assoc: star(star(a,b),c)=star(a,star(b,c))\nstar_left_dist: star(a,add(b,c))=add(star(a,b),star(a,c))\nstar_10: star(1,0)=0\nstar_01: star(0,1)=1",
+      "revision": 1,
+      "logic": "classical-equality",
+      "branch_policy": "uninterpreted-algebra",
+      "parent_id": "universe:1ab53d53-ce9f-48fe-bba4-fbc47bdde578",
+      "sort": "U"
+    }
+  ],
+  "universe_history": [],
+  "logic_records": [
+    {
+      "id": "logic:5a553f16-2e89-4d2d-82da-a19ffc70162c",
+      "operation": "check",
+      "status": "witnessed-contradiction",
+      "universe_id": "universe:1ab53d53-ce9f-48fe-bba4-fbc47bdde578",
+      "universe_revision": 1,
+      "fingerprint": "1bcb4bf6418cd4a64ac62b525382bbc45055bf7ea3654f0feaeb1ee174a94cb5",
+      "axiom_dependencies": [
+        [
+          "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+          1
+        ],
+        [
+          "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+          1
+        ],
+        [
+          "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+          1
+        ],
+        [
+          "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+          1
+        ],
+        [
+          "axiom:d3ba9194-6539-4619-a55d-872b1316ed30",
+          1
+        ],
+        [
+          "axiom:0d7e3f53-eaca-4772-906c-8d99341d93ca",
+          1
+        ],
+        [
+          "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+          1
+        ],
+        [
+          "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+          1
+        ],
+        [
+          "axiom:13879543-764b-41b3-9339-7c233ccb9cc3",
+          1
+        ],
+        [
+          "axiom:451fe94f-3ea1-404a-ad60-f867e98e8510",
+          1
+        ],
+        [
+          "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+          1
+        ],
+        [
+          "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+          1
+        ]
+      ],
+      "backend": "Z3",
+      "backend_version": "4.16.0",
+      "details": {
+        "unrestricted_check": {
+          "outcome": "unsat",
+          "scope": "Unrestricted nonempty first-order universe; no finite cardinality assumption",
+          "timeout_ms": 1800,
+          "unsat_core": [
+            {
+              "id": "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+              "label": "add_assoc",
+              "revision": 1,
+              "text": "add(add(a,b),c)=add(a,add(b,c))"
+            },
+            {
+              "id": "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+              "label": "add_left_zero",
+              "revision": 1,
+              "text": "add(0,a)=a"
+            },
+            {
+              "id": "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+              "label": "add_right_zero",
+              "revision": 1,
+              "text": "add(a,0)=a"
+            },
+            {
+              "id": "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+              "label": "add_left_inverse",
+              "revision": 1,
+              "text": "add(neg(a),a)=0"
+            },
+            {
+              "id": "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+              "label": "distinct",
+              "revision": 1,
+              "text": "0!=1"
+            },
+            {
+              "id": "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+              "label": "star_assoc",
+              "revision": 1,
+              "text": "star(star(a,b),c)=star(a,star(b,c))"
+            },
+            {
+              "id": "axiom:451fe94f-3ea1-404a-ad60-f867e98e8510",
+              "label": "star_right_dist",
+              "revision": 1,
+              "text": "star(add(a,b),c)=add(star(a,c),star(b,c))"
+            },
+            {
+              "id": "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+              "label": "star_10",
+              "revision": 1,
+              "text": "star(1,0)=0"
+            },
+            {
+              "id": "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+              "label": "star_01",
+              "revision": 1,
+              "text": "star(0,1)=1"
+            }
+          ],
+          "uses_negated_goal": false,
+          "proof_artifact": "(let ((a!1 (rewrite (= (distinct |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                       (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                               |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!2 (= (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (distinct |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))\n              (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!3 (= (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))\n              (or (not |axiom:70ea322c-8dbf-4e13-913d-83db35077846|)\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!4 (= (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (distinct |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))\n              (or (not |axiom:70ea322c-8dbf-4e13-913d-83db35077846|)\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!6 (forall ((|axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a| U))\n             (! (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                     (|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n                       |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                     |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                :pattern ((|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n                            |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)))))\n      (a!7 (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n             (|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n               (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))\n             (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n               (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                 |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n               (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!8 (forall ((|axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a| U))\n             (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                  (|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n                    |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                  |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)))\n      (a!16 (asserted (=> |axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849|\n                          (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                               |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                             |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|))))\n      (a!17 (= (=> |axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849|\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|))\n               (or (not |axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849|)\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|))))\n      (a!20 (asserted (=> |axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e|\n                          (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                               |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                             |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!21 (= (=> |axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e|\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                      |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))\n               (or (not |axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e|)\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                      |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!26 (forall ((|axiom:6fc78780-f119-416b-a6a3-2548d088829f:a| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:b| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:c| U))\n              (! (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                      |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)\n                    (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                      |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                             |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                             (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|))))))\n      (a!27 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n               (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!28 (forall ((|axiom:6fc78780-f119-416b-a6a3-2548d088829f:a| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:b| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:c| U))\n              (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                   |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)))))\n      (a!30 (proof-bind (lambda ((|axiom:6fc78780-f119-416b-a6a3-2548d088829f:a| U)\n                                 (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:b| U)\n                                 (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:c| U))\n                          (let ((a!1 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                          (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                                          |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)\n                                        (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                          |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                                          (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)))))\n                            (refl (~ a!1 a!1))))))\n      (a!40 (forall ((|axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a| U))\n              (! (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                      |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                    |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                 :pattern ((|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                             |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                             |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)))))\n      (a!42 (forall ((|axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a| U))\n              (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                 |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)))\n      (a!44 (lambda ((|axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a| U))\n              (refl (~ (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                          |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                       (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                          |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)))))\n      (a!49 (forall ((|axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a| U))\n              (! (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                      |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                    |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)\n                 :pattern ((|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                             |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                             |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)))))\n      (a!51 (forall ((|axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a| U))\n              (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)))\n      (a!53 (lambda ((|axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a| U))\n              (refl (~ (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                          |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)\n                       (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                          |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)))))\n      (a!60 (forall ((|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c| U))\n              (! (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                      (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                      |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                    (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                               |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                               |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                           (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)))))\n      (a!61 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n               (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!62 (forall ((|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c| U))\n              (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                   |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                 (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)))))\n      (a!64 (proof-bind (lambda ((|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a| U)\n                                 (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b| U)\n                                 (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c| U))\n                          (let ((a!1 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                          (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                                            |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                                            |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                                          |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                                        (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                                          (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                            |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n   ",
+          "proof_truncated": true,
+          "proof_status": "Z3 proof artifact; not independently replayed or certified"
+        }
+      }
+    },
+    {
+      "id": "logic:1748f6e1-e594-4a34-b6e2-1cbae150fc0d",
+      "operation": "repair",
+      "status": "repair-candidates",
+      "universe_id": "universe:1ab53d53-ce9f-48fe-bba4-fbc47bdde578",
+      "universe_revision": 1,
+      "fingerprint": "1bcb4bf6418cd4a64ac62b525382bbc45055bf7ea3654f0feaeb1ee174a94cb5",
+      "axiom_dependencies": [
+        [
+          "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+          1
+        ],
+        [
+          "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+          1
+        ],
+        [
+          "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+          1
+        ],
+        [
+          "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+          1
+        ],
+        [
+          "axiom:d3ba9194-6539-4619-a55d-872b1316ed30",
+          1
+        ],
+        [
+          "axiom:0d7e3f53-eaca-4772-906c-8d99341d93ca",
+          1
+        ],
+        [
+          "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+          1
+        ],
+        [
+          "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+          1
+        ],
+        [
+          "axiom:13879543-764b-41b3-9339-7c233ccb9cc3",
+          1
+        ],
+        [
+          "axiom:451fe94f-3ea1-404a-ad60-f867e98e8510",
+          1
+        ],
+        [
+          "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+          1
+        ],
+        [
+          "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+          1
+        ]
+      ],
+      "backend": "Z3",
+      "backend_version": "4.16.0",
+      "details": {
+        "foundation": {
+          "unrestricted_check": {
+            "outcome": "unsat",
+            "scope": "Unrestricted nonempty first-order universe; no finite cardinality assumption",
+            "timeout_ms": 1800,
+            "unsat_core": [
+              {
+                "id": "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+                "label": "add_assoc",
+                "revision": 1,
+                "text": "add(add(a,b),c)=add(a,add(b,c))"
+              },
+              {
+                "id": "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+                "label": "add_left_zero",
+                "revision": 1,
+                "text": "add(0,a)=a"
+              },
+              {
+                "id": "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+                "label": "add_right_zero",
+                "revision": 1,
+                "text": "add(a,0)=a"
+              },
+              {
+                "id": "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+                "label": "add_left_inverse",
+                "revision": 1,
+                "text": "add(neg(a),a)=0"
+              },
+              {
+                "id": "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+                "label": "distinct",
+                "revision": 1,
+                "text": "0!=1"
+              },
+              {
+                "id": "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+                "label": "star_assoc",
+                "revision": 1,
+                "text": "star(star(a,b),c)=star(a,star(b,c))"
+              },
+              {
+                "id": "axiom:451fe94f-3ea1-404a-ad60-f867e98e8510",
+                "label": "star_right_dist",
+                "revision": 1,
+                "text": "star(add(a,b),c)=add(star(a,c),star(b,c))"
+              },
+              {
+                "id": "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+                "label": "star_10",
+                "revision": 1,
+                "text": "star(1,0)=0"
+              },
+              {
+                "id": "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+                "label": "star_01",
+                "revision": 1,
+                "text": "star(0,1)=1"
+              }
+            ],
+            "uses_negated_goal": false,
+            "proof_artifact": "(let ((a!1 (rewrite (= (distinct |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                       (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                               |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!2 (= (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (distinct |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))\n              (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!3 (= (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))\n              (or (not |axiom:70ea322c-8dbf-4e13-913d-83db35077846|)\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!4 (= (=> |axiom:70ea322c-8dbf-4e13-913d-83db35077846|\n                  (distinct |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))\n              (or (not |axiom:70ea322c-8dbf-4e13-913d-83db35077846|)\n                  (not (= |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                          |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))))\n      (a!6 (forall ((|axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a| U))\n             (! (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                     (|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n                       |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                     |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                :pattern ((|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n                            |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)))))\n      (a!7 (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n             (|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n               (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)))\n             (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n               (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                 |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n               (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!8 (forall ((|axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a| U))\n             (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                  (|symbol:9f8da88f-30b4-48ef-ac07-823e0751235f|\n                    |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                  |axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0:a|)\n                |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)))\n      (a!16 (asserted (=> |axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849|\n                          (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                               |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                             |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|))))\n      (a!17 (= (=> |axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849|\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|))\n               (or (not |axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849|)\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|))))\n      (a!20 (asserted (=> |axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e|\n                          (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                               |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                             |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!21 (= (=> |axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e|\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                      |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))\n               (or (not |axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e|)\n                   (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                        |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                      |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!26 (forall ((|axiom:6fc78780-f119-416b-a6a3-2548d088829f:a| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:b| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:c| U))\n              (! (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                      |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)\n                    (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                      |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                        |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                             |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                             (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                               |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|))))))\n      (a!27 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n               (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!28 (forall ((|axiom:6fc78780-f119-416b-a6a3-2548d088829f:a| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:b| U)\n                     (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:c| U))\n              (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                   |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                     |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)))))\n      (a!30 (proof-bind (lambda ((|axiom:6fc78780-f119-416b-a6a3-2548d088829f:a| U)\n                                 (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:b| U)\n                                 (|axiom:6fc78780-f119-416b-a6a3-2548d088829f:c| U))\n                          (let ((a!1 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                          (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|)\n                                          |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)\n                                        (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                          |axiom:6fc78780-f119-416b-a6a3-2548d088829f:a|\n                                          (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:b|\n                                            |axiom:6fc78780-f119-416b-a6a3-2548d088829f:c|)))))\n                            (refl (~ a!1 a!1))))))\n      (a!40 (forall ((|axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a| U))\n              (! (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                      |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                    |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                 :pattern ((|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                             |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                             |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)))))\n      (a!42 (forall ((|axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a| U))\n              (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                 |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)))\n      (a!44 (lambda ((|axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a| U))\n              (refl (~ (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                          |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                       (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                            |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)\n                          |axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51:a|)))))\n      (a!49 (forall ((|axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a| U))\n              (! (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                      |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                      |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                    |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)\n                 :pattern ((|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                             |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                             |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)))))\n      (a!51 (forall ((|axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a| U))\n              (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)))\n      (a!53 (lambda ((|axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a| U))\n              (refl (~ (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                          |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)\n                       (= (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                            |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|\n                            |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                          |axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1:a|)))))\n      (a!60 (forall ((|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c| U))\n              (! (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                      (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                      |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                    (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                      (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|\n                        |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                               |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                               |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|))\n                 :pattern ((|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                           (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|\n                             |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)))))\n      (a!61 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                 (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|)\n                 |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n               (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|)\n                 (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   |symbol:e2908b6e-83fd-4055-8afc-7960623f8e58|\n                   |symbol:e57a1a06-b7c9-4b0f-aa90-cbb0a1104c2e|))))\n      (a!62 (forall ((|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b| U)\n                     (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c| U))\n              (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                   (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                   |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                 (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                   (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|\n                     |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)))))\n      (a!64 (proof-bind (lambda ((|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a| U)\n                                 (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b| U)\n                                 (|axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c| U))\n                          (let ((a!1 (= (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                          (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                                            |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n                                            |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:b|)\n                                          |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:c|)\n                                        (|symbol:619e8664-7f76-4273-ad07-67006587366e|\n                                          (|symbol:0591e8df-f487-41ad-8069-a7617ba57a7d|\n                                            |axiom:451fe94f-3ea1-404a-ad60-f867e98e8510:a|\n   ",
+            "proof_truncated": true,
+            "proof_status": "Z3 proof artifact; not independently replayed or certified"
+          }
+        },
+        "candidates": [
+          {
+            "remove": [
+              "star_right_dist"
+            ],
+            "pinned_preserved": [
+              "add_assoc",
+              "add_left_zero",
+              "add_right_zero",
+              "add_left_inverse",
+              "add_right_inverse",
+              "add_commute",
+              "distinct",
+              "star_10",
+              "star_01"
+            ],
+            "witness": {
+              "real_projection": {
+                "valid": true,
+                "checks": [
+                  {
+                    "label": "add_assoc",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "add_left_zero",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "add_right_zero",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "add_left_inverse",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "add_right_inverse",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "add_commute",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "distinct",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "star_assoc",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "star_left_dist",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "star_10",
+                    "outcome": "unsat"
+                  },
+                  {
+                    "label": "star_01",
+                    "outcome": "unsat"
+                  }
+                ],
+                "model": {
+                  "kind": "ordinary-reals-right-projection",
+                  "carrier": "ordinary real numbers",
+                  "add": "ordinary addition",
+                  "neg": "ordinary additive inverse",
+                  "mul": "ordinary multiplication (distinct from star)",
+                  "inv": "0 at zero, reciprocal otherwise",
+                  "star": "star(a,b)=b",
+                  "zero": "0",
+                  "one": "1"
+                },
+                "validation": "Negation of each universal axiom checked unsatisfiable over Z3 real arithmetic; relative to that metatheory, not an absolute consistency certificate"
+              }
+            },
+            "scope": "Model-backed alternative; not necessarily a field or a globally minimal repair"
+          }
+        ],
+        "attempts": [
+          {
+            "removed": [
+              "star_assoc"
+            ],
+            "model_constructed": false
+          },
+          {
+            "removed": [
+              "star_left_dist"
+            ],
+            "model_constructed": false
+          },
+          {
+            "removed": [
+              "star_right_dist"
+            ],
+            "model_constructed": true
+          }
+        ],
+        "pinned": [
+          "add_assoc",
+          "add_left_zero",
+          "add_right_zero",
+          "add_left_inverse",
+          "add_right_inverse",
+          "add_commute",
+          "distinct",
+          "star_10",
+          "star_01"
+        ],
+        "minimality": "Smallest witnessed deletion count within this bounded search; unknown alternatives prevent a global minimality certificate",
+        "limits": {
+          "max_deletions": 2,
+          "max_candidates_tested": 32,
+          "search_seconds": 8
+        }
+      }
+    },
+    {
+      "id": "logic:4564a7b1-caba-451c-8356-5d2b2825ede0",
+      "operation": "projection",
+      "status": "model-constructed",
+      "universe_id": "universe:194e2421-b3ed-4d23-a1d2-a922d66c1e68",
+      "universe_revision": 1,
+      "fingerprint": "f98624c1d2fa92a598f9a9de2d1dc03e5aa39ba7776bc31e968a0a8f597984ac",
+      "axiom_dependencies": [
+        [
+          "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+          1
+        ],
+        [
+          "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+          1
+        ],
+        [
+          "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+          1
+        ],
+        [
+          "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+          1
+        ],
+        [
+          "axiom:d3ba9194-6539-4619-a55d-872b1316ed30",
+          1
+        ],
+        [
+          "axiom:0d7e3f53-eaca-4772-906c-8d99341d93ca",
+          1
+        ],
+        [
+          "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+          1
+        ],
+        [
+          "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+          1
+        ],
+        [
+          "axiom:13879543-764b-41b3-9339-7c233ccb9cc3",
+          1
+        ],
+        [
+          "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+          1
+        ],
+        [
+          "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+          1
+        ]
+      ],
+      "backend": "Z3",
+      "backend_version": "4.16.0",
+      "details": {
+        "real_projection": {
+          "valid": true,
+          "checks": [
+            {
+              "label": "add_assoc",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_left_zero",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_right_zero",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_left_inverse",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_right_inverse",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_commute",
+              "outcome": "unsat"
+            },
+            {
+              "label": "distinct",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_assoc",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_left_dist",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_10",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_01",
+              "outcome": "unsat"
+            }
+          ],
+          "model": {
+            "kind": "ordinary-reals-right-projection",
+            "carrier": "ordinary real numbers",
+            "add": "ordinary addition",
+            "neg": "ordinary additive inverse",
+            "mul": "ordinary multiplication (distinct from star)",
+            "inv": "0 at zero, reciprocal otherwise",
+            "star": "star(a,b)=b",
+            "zero": "0",
+            "one": "1"
+          },
+          "validation": "Negation of each universal axiom checked unsatisfiable over Z3 real arithmetic; relative to that metatheory, not an absolute consistency certificate"
+        },
+        "properties": {
+          "associative": {
+            "holds": true,
+            "checks": [
+              {
+                "label": "associative",
+                "outcome": "unsat"
+              }
+            ]
+          },
+          "left_distributive": {
+            "holds": true,
+            "checks": [
+              {
+                "label": "left_distributive",
+                "outcome": "unsat"
+              }
+            ]
+          },
+          "right_distributive": {
+            "holds": false,
+            "checks": [
+              {
+                "label": "right_distributive",
+                "outcome": "sat",
+                "counterexample": {
+                  "c": "-1",
+                  "a": "0",
+                  "b": "0"
+                }
+              }
+            ]
+          },
+          "commutative": {
+            "holds": false,
+            "checks": [
+              {
+                "label": "commutative",
+                "outcome": "sat",
+                "counterexample": {
+                  "a": "3",
+                  "b": "2"
+                }
+              }
+            ]
+          },
+          "left_unit_one": {
+            "holds": true,
+            "checks": [
+              {
+                "label": "left_unit_one",
+                "outcome": "unsat"
+              }
+            ]
+          },
+          "right_unit_one": {
+            "holds": false,
+            "checks": [
+              {
+                "label": "right_unit_one",
+                "outcome": "sat",
+                "counterexample": {
+                  "a": "0"
+                }
+              }
+            ]
+          }
+        },
+        "scope": "Ordinary additive reals with star(a,b)=b; star is not field multiplication or automatically two-sided unital"
+      }
+    },
+    {
+      "id": "logic:03cdf481-ccc7-4308-9c97-a5010998e8d7",
+      "operation": "projection",
+      "status": "model-constructed",
+      "universe_id": "universe:194e2421-b3ed-4d23-a1d2-a922d66c1e68",
+      "universe_revision": 1,
+      "fingerprint": "f98624c1d2fa92a598f9a9de2d1dc03e5aa39ba7776bc31e968a0a8f597984ac",
+      "axiom_dependencies": [
+        [
+          "axiom:3a932e0e-085e-492f-83ff-78702ddfe62b",
+          1
+        ],
+        [
+          "axiom:7175d84c-c75c-43d5-adf5-1fed092e1c51",
+          1
+        ],
+        [
+          "axiom:09936d26-0081-4d1c-9c76-f9dc8bd98be1",
+          1
+        ],
+        [
+          "axiom:f49dfc83-93f5-4adf-8d74-9ba3fcbf3fb0",
+          1
+        ],
+        [
+          "axiom:d3ba9194-6539-4619-a55d-872b1316ed30",
+          1
+        ],
+        [
+          "axiom:0d7e3f53-eaca-4772-906c-8d99341d93ca",
+          1
+        ],
+        [
+          "axiom:70ea322c-8dbf-4e13-913d-83db35077846",
+          1
+        ],
+        [
+          "axiom:6fc78780-f119-416b-a6a3-2548d088829f",
+          1
+        ],
+        [
+          "axiom:13879543-764b-41b3-9339-7c233ccb9cc3",
+          1
+        ],
+        [
+          "axiom:9d351826-851f-4f73-a4ea-b6ac6e2d1849",
+          1
+        ],
+        [
+          "axiom:d9d890ec-d09b-4c1b-b36a-847e4ebab77e",
+          1
+        ]
+      ],
+      "backend": "Z3",
+      "backend_version": "4.16.0",
+      "details": {
+        "real_projection": {
+          "valid": true,
+          "checks": [
+            {
+              "label": "add_assoc",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_left_zero",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_right_zero",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_left_inverse",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_right_inverse",
+              "outcome": "unsat"
+            },
+            {
+              "label": "add_commute",
+              "outcome": "unsat"
+            },
+            {
+              "label": "distinct",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_assoc",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_left_dist",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_10",
+              "outcome": "unsat"
+            },
+            {
+              "label": "star_01",
+              "outcome": "unsat"
+            }
+          ],
+          "model": {
+            "kind": "ordinary-reals-right-projection",
+            "carrier": "ordinary real numbers",
+            "add": "ordinary addition",
+            "neg": "ordinary additive inverse",
+            "mul": "ordinary multiplication (distinct from star)",
+            "inv": "0 at zero, reciprocal otherwise",
+            "star": "star(a,b)=b",
+            "zero": "0",
+            "one": "1"
+          },
+          "validation": "Negation of each universal axiom checked unsatisfiable over Z3 real arithmetic; relative to that metatheory, not an absolute consistency certificate"
+        },
+        "properties": {
+          "associative": {
+            "holds": true,
+            "checks": [
+              {
+                "label": "associative",
+                "outcome": "unsat"
+              }
+            ]
+          },
+          "left_distributive": {
+            "holds": true,
+            "checks": [
+              {
+                "label": "left_distributive",
+                "outcome": "unsat"
+              }
+            ]
+          },
+          "right_distributive": {
+            "holds": false,
+            "checks": [
+              {
+                "label": "right_distributive",
+                "outcome": "sat",
+                "counterexample": {
+                  "a": "0",
+                  "b": "0",
+                  "c": "-1"
+                }
+              }
+            ]
+          },
+          "commutative": {
+            "holds": false,
+            "checks": [
+              {
+                "label": "commutative",
+                "outcome": "sat",
+                "counterexample": {
+                  "a": "3",
+                  "b": "2"
+                }
+              }
+            ]
+          },
+          "left_unit_one": {
+            "holds": true,
+            "checks": [
+              {
+                "label": "left_unit_one",
+                "outcome": "unsat"
+              }
+            ]
+          },
+          "right_unit_one": {
+            "holds": false,
+            "checks": [
+              {
+                "label": "right_unit_one",
+                "outcome": "sat",
+                "counterexample": {
+                  "a": "0"
+                }
+              }
+            ]
+          }
+        },
+        "scope": "Ordinary additive reals with star(a,b)=b; star is not field multiplication or automatically two-sided unital"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "92376d22-1680-4475-933a-fffa17a8ffa3",
+      "name": "f",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:ce25ca26-5874-47e7-8d47-925ce4dab7ab",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:pow",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "x:ce25ca26-5874-47e7-8d47-925ce4dab7ab",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "integer",
+            "value": "3",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "f(x) = x^3",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "705ca450-0d53-4c49-b6ce-54fdadf200ab",
+      "name": "g",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:a4ebebef-ccdd-4b18-8bef-60f1d02012f7",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:sin",
+        "args": [
+          {
+            "kind": "symbol",
+            "value": "x:a4ebebef-ccdd-4b18-8bef-60f1d02012f7",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "g(x) = sin(x)",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "c1348f4b-6362-482a-8faf-d4456e0af647",
+      "name": "h",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:a6c1a066-5acc-4d3f-b67e-cb6d2bce5748",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "integral",
+        "value": "definite",
+        "args": [
+          {
+            "kind": "call",
+            "value": "92376d22-1680-4475-933a-fffa17a8ffa3",
+            "args": [
+              {
+                "kind": "call",
+                "value": "705ca450-0d53-4c49-b6ce-54fdadf200ab",
+                "args": [
+                  {
+                    "kind": "symbol",
+                    "value": "t:b1a55e38-6d08-41af-80c4-e09e3fac5ec3",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "t:b1a55e38-6d08-41af-80c4-e09e3fac5ec3",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:a6c1a066-5acc-4d3f-b67e-cb6d2bce5748",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "h(x) = Integral(f(g(t)), (t, 0, x))",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [
+        "705ca450-0d53-4c49-b6ce-54fdadf200ab",
+        "92376d22-1680-4475-933a-fffa17a8ffa3"
+      ],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "d39699d8-c1a3-40c7-8bb9-c55e4249b952",
+      "name": "p",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:580af04c-d29f-4e5b-9e44-f639ddda5751",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "derivative",
+        "value": "diff",
+        "args": [
+          {
+            "kind": "call",
+            "value": "c1348f4b-6362-482a-8faf-d4456e0af647",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "x:580af04c-d29f-4e5b-9e44-f639ddda5751",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "x:580af04c-d29f-4e5b-9e44-f639ddda5751",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "p(x) = diff(h(x), x)",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [
+        "c1348f4b-6362-482a-8faf-d4456e0af647"
+      ],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 4,
+    "logic_settings": {
+      "active": "universe:194e2421-b3ed-4d23-a1d2-a922d66c1e68",
+      "operation": "projection",
+      "conjecture": "star(a,b)=star(b,a)",
+      "pinned": "add_assoc,add_left_zero,add_right_zero,add_left_inverse,add_right_inverse,add_commute,distinct,star_10,star_01"
+    },
+    "view": {
+      "name": "p",
+      "mode": "exact",
+      "coordinate": "1",
+      "lower": "-5",
+      "upper": "5",
+      "x_scale": "linear",
+      "y_scale": "linear",
+      "digits": 30,
+      "gamma_factorial": false,
+      "max_points": 1000,
+      "geometry": "real",
+      "imaginary_lower": "-2",
+      "imaginary_upper": "2",
+      "imag_coordinate": "0",
+      "resolution": 41,
+      "height_scale": "linear",
+      "prime": 5,
+      "padic_digits": 4
+    },
+    "view_records": [],
+    "analysis_settings": {
+      "method": "taylor",
+      "center_real": "0",
+      "center_imag": "0",
+      "order": 32,
+      "coefficient_method": "series",
+      "radius": "1/2",
+      "path": "0,0;2,0",
+      "dependent": "y",
+      "parameters": "a,b"
+    }
+  }
+}

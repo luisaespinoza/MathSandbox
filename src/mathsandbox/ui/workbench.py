@@ -12,6 +12,8 @@ from ..visualization.geometry import GeometrySettings, compute_geometry
 from ..adapters.complex_numeric import COMPLEX_CONTEXT
 from ..adapters.padic import RATIONAL_CONTEXT
 from ..analysis.settings import AnalysisSettings
+from ..axioms.universes import create as create_universe, update as update_universe, fork as fork_universe, signature_text
+from ..axioms.engine import run as run_logic, current as logic_current, apply_repair as apply_logic_repair
 from ..analysis.engine import run as run_analysis, current as analysis_current
 
 DEMO = "f(x) = x^3\ng(x) = sin(x)\nh(x) = Integral(f(g(t)), (t, 0, x))\np(x) = diff(h(x), x)"
@@ -22,6 +24,7 @@ class Workbench:
         self.project = Project()
         self.view_records = []
         self.analysis_settings = asdict(AnalysisSettings())
+        self.logic_settings = {"active":None,"operation":"check","conjecture":"star(a,b)=star(b,a)","pinned":""}
         self.view = {"name": "p", "mode": "exact", "coordinate": "1", **asdict(PlotSettings()), **asdict(GeometrySettings())}
         self.apply(DEMO)
 
@@ -115,7 +118,8 @@ class Workbench:
                             for obj in self.project.objects.values()], "view": self.view,
                 "analysis_settings": self.analysis_settings,
                 "transformations": [{"id":d.id,"description":d.description} for d in self.project.transform_registry.definitions.values()],
-                "analysis_records": [{"record":asdict(record),"current":analysis_current(self.project,record.provenance)} for record in self.project.analysis_records]}
+                "analysis_records": [{"record":asdict(record),"current":analysis_current(self.project,record.provenance)} for record in self.project.analysis_records],
+                "axiom_lab": self.axiom_state()}
 
     def render(self, view):
         if view.get("mode") not in ("exact", "numeric", "unevaluated"):
@@ -189,9 +193,64 @@ class Workbench:
         self.analysis_settings["method"]="custom:"+name
         return self.state()
 
+    def axiom_state(self):
+        active=self.logic_settings.get("active")
+        if active not in self.project.universes:
+            active=None
+            self.logic_settings["active"]=None
+        universe=self.project.universes.get(active)
+        return {"settings":self.logic_settings,"universes":[{"id":u.id,"name":u.name,"revision":u.revision,"parent_id":u.parent_id} for u in self.project.universes.values()],
+                "active":{**asdict(universe),"signature_text":signature_text(universe)} if universe else None,
+                "records":[{"record":asdict(r),"current":logic_current(self.project,r)} for r in self.project.logic_records if r.universe_id==active]}
+
+    def axiom_create(self,data):
+        universe=create_universe(data.get("template","star-contradiction"),data.get("name"))
+        self.project.universes[universe.id]=universe
+        protected={"add_assoc","add_left_zero","add_right_zero","add_left_inverse","add_right_inverse","add_commute","distinct","star_10","star_01"}
+        self.logic_settings.update(active=universe.id,pinned=",".join(a.label for a in universe.axioms if a.label in protected),operation="check")
+        return self.axiom_state()
+
+    def axiom_select(self,data):
+        if data["id"] not in self.project.universes:raise ValueError("Unknown universe")
+        self.logic_settings["active"]=data["id"]
+        labels={a.label for a in self.project.universes[data["id"]].axioms}
+        self.logic_settings["pinned"]=",".join(label for label in self.logic_settings["pinned"].split(',') if label in labels)
+        return self.axiom_state()
+
+    def axiom_edit(self,data):
+        universe=self.project.universes[self.logic_settings["active"]]
+        updated=update_universe(universe,data["source_text"],data["signature_text"],name=data.get("name"),logic=data.get("logic"),branch_policy=data.get("branch_policy"))
+        if updated!=universe:
+            self.project.universe_history.append(universe)
+            self.project.universes[universe.id]=updated
+        if "pinned" in data:self.logic_settings["pinned"]=data["pinned"]
+        if "conjecture" in data:self.logic_settings["conjecture"]=data["conjecture"]
+        return self.axiom_state()
+
+    def axiom_run(self,data):
+        if self.logic_settings["active"] not in self.project.universes:raise ValueError("Create or select a universe first")
+        operation=data.get("operation","check")
+        pins=[value.strip() for value in self.logic_settings.get("pinned","").split(',') if value.strip()]
+        record=run_logic(self.project,self.logic_settings["active"],operation,conjecture=self.logic_settings["conjecture"],pinned=pins)
+        self.logic_settings["operation"]=operation
+        return {"record":asdict(record),"current":True,"state":self.axiom_state()}
+
+    def axiom_fork(self,data):
+        universe=fork_universe(self.project.universes[self.logic_settings["active"]],data.get("name"))
+        self.project.universes[universe.id]=universe;self.logic_settings["active"]=universe.id
+        return self.axiom_state()
+
+    def axiom_apply_repair(self,data):
+        record=next((r for r in self.project.logic_records if r.id==data["record_id"]),None)
+        if record is None or record.universe_id!=self.logic_settings["active"]:raise ValueError("Repair belongs to another universe")
+        pins=[value.strip() for value in self.logic_settings.get("pinned","").split(',') if value.strip()]
+        universe=apply_logic_repair(self.project,record.id,data["candidate"],pins)
+        self.logic_settings["active"]=universe.id
+        return self.axiom_state()
+
     def export(self):
         data = json.loads(dumps(self.project))
-        data["workbench"] = {"schema_version": 3, "view": self.view, "view_records": self.view_records, "analysis_settings": self.analysis_settings}
+        data["workbench"] = {"schema_version": 4, "logic_settings": self.logic_settings, "view": self.view, "view_records": self.view_records, "analysis_settings": self.analysis_settings}
         return json.dumps(data, indent=2) + "\n"
 
     def restore(self, text):
@@ -204,7 +263,7 @@ class Workbench:
         records = metadata.get("view_records", [])
         if not isinstance(records, list) or any(not isinstance(record, dict) for record in records):
             raise ValueError("Malformed view provenance records")
-        if metadata and metadata.get("schema_version") not in (1, 2, 3):
+        if metadata and metadata.get("schema_version") not in (1, 2, 3, 4):
             raise ValueError("Unsupported workbench schema version")
         if not project.names:
             raise ValueError("Project contains no functions")
@@ -218,7 +277,13 @@ class Workbench:
             raise ValueError("Malformed analysis controls")
         restored_analysis=AnalysisSettings(**{key:analysis_settings.get(key,default) for key,default in asdict(AnalysisSettings()).items()})
         restored_analysis.validate(project)
+        logic_settings=metadata.get("logic_settings",{"active":None,"operation":"check","conjecture":"star(a,b)=star(b,a)","pinned":""})
+        if not isinstance(logic_settings,dict) or any(not isinstance(logic_settings.get(key,""),str) for key in ("operation","conjecture","pinned")):
+            raise ValueError("Malformed axiom controls")
+        if logic_settings.get("active") is not None and logic_settings["active"] not in project.universes:
+            raise ValueError("Selected universe is missing")
         self.project = project
+        self.logic_settings=deepcopy(logic_settings)
         self.analysis_settings=asdict(restored_analysis)
         self.view_records = deepcopy(records)
         valid_name = view.get("name") in project.names
