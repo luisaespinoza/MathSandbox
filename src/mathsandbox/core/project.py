@@ -4,6 +4,8 @@ from .parser import Parser
 from ..operators.registry import OperatorRegistry
 from ..operators.constructions import ConstructionRegistry
 from ..operators.syntax import RESERVED
+from ..analysis.registry import TransformationRegistry, TransformationDefinition
+from ..analysis.records import AnalyticGerm, AnalysisRecord
 from ..adapters.sympy_backend import evaluate
 
 
@@ -19,6 +21,9 @@ class Project:
         self.registry = OperatorRegistry()
         self.constructions = ConstructionRegistry()
         self.objects: dict[str, MathObject] = {}
+        self.transform_registry = TransformationRegistry()
+        self.analytic_germs: dict[str, AnalyticGerm] = {}
+        self.analysis_records: list[AnalysisRecord] = []
         self.representations: dict[str, Representation] = {}
         self.history: list[MathObject] = []
         self.transformations: list[Representation] = []
@@ -144,3 +149,10 @@ class Project:
         if result.status != "exact":
             raise IncompatibleSemantics("No exact licensed representation; inspect evaluate().expression instead")
         return Translator(self.objects, self.registry, obj.context, self.constructions).translate(result.expression)
+
+    def register_rewrite(self, name: str, pattern: str, replacement: str):
+        import ast
+        parameter = Expr("symbol", "x:"+identity())
+        parser = Parser(self.registry, {})
+        parse = lambda text: parser.expression(ast.parse(text.replace("^", "**"), mode="eval").body, {"x": parameter})
+        self.transform_registry.register(TransformationDefinition(name, "rewrite", "User-specified non-destructive rewrite", parameter, parse(pattern), parse(replacement)))

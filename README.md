@@ -1,8 +1,8 @@
-# MathSandbox — A3 mathematical geometry
+# MathSandbox — A4 analytic transformations
 
 A local browser workbench and Python library for named mathematical definitions,
 exact symbolic composition, numerical exploration, and reproducible project records. The project specification is in
-[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A3; A4–A5 remain deferred.
+[docs/ALPHA_SPEC.md](docs/ALPHA_SPEC.md). This implementation includes A0–A4; A5 remains deferred.
 
 ## Install and run
 
@@ -78,7 +78,7 @@ server. Use one browser tab per running session; multiple tabs share its project
   axes** restores both axes in one click without changing definitions.
 - **Save project** downloads versioned JSON, including current definitions,
   history, symbolic provenance, and workbench view/precision/extension settings.
-  Pending editor changes are applied before saving. **Open project** accepts existing A0–A3 projects. Invalid imports leave the session intact. Sample arrays
+  Pending editor changes are applied before saving. **Open project** accepts existing A0–A4 projects. Invalid imports leave the session intact. Sample arrays
   and point values are recomputed on open rather than trusted as certificates.
   There is no autosave; save before closing or replacing the session.
 
@@ -125,6 +125,28 @@ operators and unsupported contexts remain unsupported. An integral or derivative
 exact symbolic representation before numerical sampling; there is no new numerical
 integration or differentiation algorithm in A1.
 
+## A4 series and conditional transformations
+
+Click **Series & continuation** for exact Taylor/Laurent coefficients, Cauchy
+quadrature, and overlapping-disk Taylor transport of `1/(1+z^2)` to z=2. Click
+**Implicit constraint** for the regular-branch identity `y_a+x^2*y_b=0` from
+`F=y^2-a*x^3+b*x=0`, conditional on y!=0. The analysis panel also offers
+differentiation, factor/simplify, and custom non-destructive rewrite templates.
+
+Typed analytic germs, assumptions, source exclusions, reconstruction information,
+and analysis history are saved. Exact finite coefficients are distinguished from
+truncated/numerical results. Stale records are labeled, and imported results are
+recomputed rather than trusted as certificates. See
+[A4 semantics and limits](docs/A4_ANALYSIS.md), or run:
+
+```sh
+python examples/analytic_transformations.py
+```
+
+Core/workbench schema version 3 loads existing version 1/2 files. A4 project files
+require this release. General branch continuation and universal PDE solving are
+not implemented.
+
 ## A3 complex and p-adic geometry
 
 Use **Complex geometry** for domain coloring, a phase-colored magnitude surface,
@@ -158,8 +180,8 @@ resource limits, and supported versus deferred cases. Run:
 python examples/generalized_operators.py
 ```
 
-Project JSON now uses schema version 2; version 1 A0/A1 projects still load. A2 files
-require the A2 release. Construction choices, branches, domains, source revisions,
+A2 introduced project schema version 2; version 1 A0/A1 projects still load. The
+current A4 schema is version 3. Construction choices, branches, domains, source revisions,
 and exact-rule provenance survive serialization.
 
 ## A0 contracts
@@ -218,8 +240,8 @@ isolation, timeout preservation, and save/load. A2 tests cover finite towers, fo
 iteration family identities, domain gates, resource limits, and registry/JSON
 preservation. These checks establish the implemented vertical slices; they do not certify arbitrary integrations or custom mathematics.
 
-Deferred to A4–A5: analytic continuation,
-transformation discovery, and axiom/model/proof engines. General free symbols,
+Deferred to A5: axiom/model/proof engines. General analytic continuation and
+universal transformation discovery remain outside the implemented subset. General free symbols,
 parameterized domain proofs, matrices, recurrences, forward references, and
 arbitrary user-supplied executable evaluators are not supported yet. Contexts
 outside the conservative real subset can be stored and composed formally.

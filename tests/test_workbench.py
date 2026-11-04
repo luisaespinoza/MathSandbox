@@ -186,6 +186,8 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert status == 200 and "plotly" in js.lower()
             status, js = request("GET", "/geometry.js")
             assert status == 200 and "renderGeometry" in js
+            status, js = request("GET", "/analysis.js")
+            assert status == 200 and "showAnalysis" in js
             assert request("POST", "/api/define", {"definitions": "g(x)=sin(2*x)"}, token=False)[0] == 403
             assert request("POST", "/api/define", {"definitions": "g(x)=sin(2*x)"})[0] == 200
             status, text = request("POST", "/api/render", {**server.workbench.view, "mode": "numeric"})
@@ -194,7 +196,7 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert result["plot"]["samples"]
             assert float(result["point"]["value"]) == pytest.approx(math.sin(2)**3)
             status, saved = request("GET", "/api/export")
-            assert status == 200 and json.loads(saved)["workbench"]["schema_version"] == 2
+            assert status == 200 and json.loads(saved)["workbench"]["schema_version"] == 3
             assert request("POST", "/api/import", {"project": saved})[0] == 200
             assert request("POST", "/api/import", {"project": "not JSON"})[0] == 400
             assert request("POST", "/api/demo", {"example": "factorial"})[0] == 200
@@ -208,6 +210,14 @@ def test_http_launch_assets_edit_and_roundtrip():
             assert status == 200 and json.loads(text)["plot"]["valuation"] == 3
             status, text = request("GET", "/api/export")
             assert status == 200 and json.loads(text)["workbench"]["view_records"][-1]["norm"] == "1/125"
+            assert request("POST", "/api/demo", {"example": "series"})[0] == 200
+            status, text = request("POST", "/api/analysis", {"name": "f", "method": "continue", "order": 24})
+            analysis = json.loads(text)
+            assert status == 200 and analysis["record"]["status"] == "numerically-computed"
+            assert float(analysis["record"]["details"]["continuation"]["reference_absolute_difference"]) < 1e-14
+            assert request("POST", "/api/analysis-settings", {"method": "taylor", "order": 12})[0] == 200
+            assert request("POST", "/api/rewrite", {"name": "identity", "pattern": "x", "replacement": "x"})[0] == 200
+
 
         finally:
             client.close()

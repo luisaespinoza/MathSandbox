@@ -5,3 +5,7 @@ from .operators.constructions import ConstructionDefinition
 from .storage.json_project import load, save
 
 __all__ = ["Context", "Expr", "MathObject", "Representation", "Project", "OperatorDefinition", "ConstructionDefinition", "load", "save"]
+
+from .analysis.records import AnalyticGerm, AnalysisRecord
+
+__all__ += ["AnalyticGerm", "AnalysisRecord"]

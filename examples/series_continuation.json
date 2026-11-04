@@ -1,0 +1,1287 @@
+{
+  "schema_version": 3,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    },
+    {
+      "id": "builtin:gamma",
+      "name": "gamma",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:gamma",
+      "notation": ""
+    }
+  ],
+  "constructions": [
+    {
+      "id": "integer",
+      "kind": "iteration",
+      "description": "Finite nonnegative integer composition; no fractional extension"
+    },
+    {
+      "id": "builtin:rl-integral",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville integral; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:rl-derivative",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville derivative; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:caputo-derivative",
+      "kind": "fractional",
+      "description": "Left Caputo derivative; lower endpoint zero; admissible power functions"
+    },
+    {
+      "id": "positive-power",
+      "kind": "iteration",
+      "description": "On x>0: the chosen family F_t(x)=x^(p^t), p>0"
+    },
+    {
+      "id": "translation",
+      "kind": "iteration",
+      "description": "On the reals: the family F_t(x)=x+c*t"
+    },
+    {
+      "id": "positive-scaling",
+      "kind": "iteration",
+      "description": "The family F_t(x)=a^t*x, a>0"
+    }
+  ],
+  "transform_registry": [
+    {
+      "id": "builtin:differentiate",
+      "operation": "differentiate",
+      "description": "Symbolic derivative; integration needs reconstruction data",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    },
+    {
+      "id": "builtin:factor",
+      "operation": "factor",
+      "description": "Factor while retaining the original source exclusions",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    },
+    {
+      "id": "builtin:simplify",
+      "operation": "simplify",
+      "description": "Simplify while retaining the original source exclusions",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    }
+  ],
+  "analytic_germs": [
+    {
+      "id": "e80bf327-e4ba-4ec0-b521-ecd1eec1a0fa",
+      "kind": "taylor",
+      "center": {
+        "kind": "integer",
+        "value": "0",
+        "args": [],
+        "conventions": []
+      },
+      "variable": {
+        "kind": "symbol",
+        "value": "z:62b6b3f9-88bf-43d5-8078-7d3f9f85f883",
+        "args": [],
+        "conventions": []
+      },
+      "coefficients": [
+        {
+          "power": 0,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 1,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 2,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 3,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 4,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 5,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 6,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 7,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 8,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 9,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        }
+      ],
+      "inner_radius": "0",
+      "outer_radius": "1",
+      "radius_status": "Conservative source-domain radius; not a certified maximal convergence radius",
+      "exclusions": [
+        "-I",
+        "I"
+      ],
+      "error_model": "Exact finite coefficients; truncated series has no certified global remainder",
+      "coefficient_method": "recurrence",
+      "provenance": {
+        "source_id": "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+            1
+          ]
+        ],
+        "method": "taylor",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-complex",
+          "domain": "Complexes",
+          "codomain": "Complexes",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        },
+        "rules": [
+          "A4:explicit-source-domain-and-branch-retention"
+        ],
+        "diagnostic": ""
+      }
+    },
+    {
+      "id": "55171233-641e-4d58-83f6-75667303b1a1",
+      "kind": "taylor",
+      "center": {
+        "kind": "integer",
+        "value": "0",
+        "args": [],
+        "conventions": []
+      },
+      "variable": {
+        "kind": "symbol",
+        "value": "z:62b6b3f9-88bf-43d5-8078-7d3f9f85f883",
+        "args": [],
+        "conventions": []
+      },
+      "coefficients": [
+        {
+          "power": 0,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 1,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 2,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 3,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 4,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 5,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 6,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 7,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 8,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 9,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 10,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 11,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 12,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 13,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 14,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 15,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 16,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 17,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 18,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 19,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 20,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 21,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 22,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 23,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 24,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 25,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 26,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 27,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 28,
+          "value": {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 29,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 30,
+          "value": {
+            "kind": "integer",
+            "value": "-1",
+            "args": [],
+            "conventions": []
+          }
+        },
+        {
+          "power": 31,
+          "value": {
+            "kind": "integer",
+            "value": "0",
+            "args": [],
+            "conventions": []
+          }
+        }
+      ],
+      "inner_radius": "0",
+      "outer_radius": "1",
+      "radius_status": "Conservative source-domain radius; not a certified maximal convergence radius",
+      "exclusions": [
+        "-I",
+        "I"
+      ],
+      "error_model": "Exact finite coefficients; truncated series has no certified global remainder",
+      "coefficient_method": "recurrence",
+      "provenance": {
+        "source_id": "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+            1
+          ]
+        ],
+        "method": "continue",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-complex",
+          "domain": "Complexes",
+          "codomain": "Complexes",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        },
+        "rules": [
+          "A4:explicit-source-domain-and-branch-retention"
+        ],
+        "diagnostic": ""
+      }
+    }
+  ],
+  "analysis_records": [
+    {
+      "id": "521aefa8-c346-412b-9e05-98240e9cf9ab",
+      "method": "taylor",
+      "status": "exact-symbolic",
+      "result": null,
+      "assumptions": [
+        "One-valued analytic/meromorphic supported template on the recorded disk or punctured annulus",
+        "z**2 + 1 != 0"
+      ],
+      "exceptional_sets": [
+        "z**2 + 1 = 0"
+      ],
+      "reconstruction": "Retain germ center, coefficients, source exclusions, and the explicit truncation model",
+      "details": {
+        "radius_display": "finite",
+        "radius_estimate": 1.0,
+        "germ_id": "e80bf327-e4ba-4ec0-b521-ecd1eec1a0fa",
+        "kind": "taylor",
+        "center": "0",
+        "coefficients": [
+          {
+            "power": 0,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 1,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 2,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 3,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 4,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 5,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 6,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 7,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 8,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 9,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          }
+        ],
+        "inner_radius": "0",
+        "outer_radius": "1",
+        "radius_status": "Conservative source-domain radius; not a certified maximal convergence radius",
+        "exclusions": [
+          "-I",
+          "I"
+        ],
+        "error_model": "Exact finite coefficients; truncated series has no certified global remainder",
+        "coefficient_method": "recurrence",
+        "source_definition": "f(z) = 1/(1+z^2)"
+      },
+      "provenance": {
+        "source_id": "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+            1
+          ]
+        ],
+        "method": "taylor",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-complex",
+          "domain": "Complexes",
+          "codomain": "Complexes",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        },
+        "rules": [
+          "A4:explicit-source-domain-and-branch-retention"
+        ],
+        "diagnostic": ""
+      }
+    },
+    {
+      "id": "5438173f-efb5-407f-bd88-116d2707fcf6",
+      "method": "continue",
+      "status": "numerically-computed",
+      "result": null,
+      "assumptions": [
+        "One-valued analytic/meromorphic supported template on the recorded disk or punctured annulus",
+        "z**2 + 1 != 0"
+      ],
+      "exceptional_sets": [
+        "z**2 + 1 = 0"
+      ],
+      "reconstruction": "Retain germ center, coefficients, source exclusions, and the explicit truncation model",
+      "details": {
+        "radius_display": "finite",
+        "radius_estimate": 1.0,
+        "germ_id": "55171233-641e-4d58-83f6-75667303b1a1",
+        "kind": "taylor",
+        "center": "0",
+        "coefficients": [
+          {
+            "power": 0,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 1,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 2,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 3,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 4,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 5,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 6,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 7,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 8,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 9,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 10,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 11,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 12,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 13,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 14,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 15,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 16,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 17,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 18,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 19,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 20,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 21,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 22,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 23,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 24,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 25,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 26,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 27,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 28,
+            "coefficient": "1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 29,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          },
+          {
+            "power": 30,
+            "coefficient": "-1",
+            "log_magnitude": 0.3010299956639812
+          },
+          {
+            "power": 31,
+            "coefficient": "0",
+            "log_magnitude": 0.0
+          }
+        ],
+        "inner_radius": "0",
+        "outer_radius": "1",
+        "radius_status": "Conservative source-domain radius; not a certified maximal convergence radius",
+        "exclusions": [
+          "-I",
+          "I"
+        ],
+        "error_model": "Exact finite coefficients; truncated series has no certified global remainder",
+        "coefficient_method": "recurrence",
+        "continuation": {
+          "value": "(0.199999999999999999999245112471 + 0.0j)",
+          "endpoint": "2",
+          "reference_value": "(0.2 + 0.0j)",
+          "reference_absolute_difference": "7.54887529353384902815137315064e-22",
+          "error_estimate": "1.39717832742390883512899052205e-17",
+          "error_model": "Observed order/precision refinement difference; not a certified bound",
+          "requested_order": 32,
+          "refined_order": 40,
+          "digits": 30,
+          "working_digits": 40,
+          "path": [
+            "0",
+            "2"
+          ],
+          "steps": [
+            {
+              "from": "(0.0 + 0.0j)",
+              "center": "(0.3 + 0.0j)",
+              "from_coordinates": [
+                0.0,
+                0.0
+              ],
+              "center_coordinates": [
+                0.3,
+                0.0
+              ],
+              "new_radius_estimate": "1.044030650891055017975775402254804767829",
+              "radius_estimate": "1.0",
+              "step_length": "0.3",
+              "retained_tail_indicator": "1.50094635296999121e-19",
+              "differential_invariant_residual": "1.215766545905692880105229755303039083824e-21"
+            },
+            {
+              "from": "(0.3 + 0.0j)",
+              "center": "(0.6132091952673165053927326206764414303487 + 0.0j)",
+              "from_coordinates": [
+                0.3,
+                0.0
+              ],
+              "center_coordinates": [
+                0.6132091952673165,
+                0.0
+              ],
+              "new_radius_estimate": "1.173041140438130542908188710149091902162",
+              "radius_estimate": "1.044030650891055017975775402254804767829",
+              "step_length": "0.3132091952673165053927326206764414303487",
+              "retained_tail_indicator": "4.299217948855387681005270810541092107318e-20",
+              "differential_invariant_residual": "2.551480841104031464503224086729499834603e-21"
+            },
+            {
+              "from": "(0.6132091952673165053927326206764414303487 + 0.0j)",
+              "center": "(0.9651215373987556682651892337211690009972 + 0.0j)",
+              "from_coordinates": [
+                0.6132091952673165,
+                0.0
+              ],
+              "center_coordinates": [
+                0.9651215373987556,
+                0.0
+              ],
+              "new_radius_estimate": "1.389769614702716738039258348161991011406",
+              "radius_estimate": "1.173041140438130542908188710149091902162",
+              "step_length": "0.3519123421314391628724566130447275706485",
+              "retained_tail_indicator": "3.400344529789105707311001659847285682814e-20",
+              "differential_invariant_residual": "1.349732465510109253905402848299879432653e-21"
+            },
+            {
+              "from": "(0.9651215373987556682651892337211690009972 + 0.0j)",
+              "center": "(1.382052421809570689676966738169766304419 + 0.0j)",
+              "from_coordinates": [
+                0.9651215373987556,
+                0.0
+              ],
+              "center_coordinates": [
+                1.3820524218095707,
+                0.0
+              ],
+              "new_radius_estimate": "1.7058924047634714482115424280293022886",
+              "radius_estimate": "1.389769614702716738039258348161991011406",
+              "step_length": "0.4169308844108150214117775044485973034217",
+              "retained_tail_indicator": "1.071055745503271762087497292713205685166e-19",
+              "differential_invariant_residual": "3.366909280924709162476749115115125576557e-21"
+            },
+            {
+              "from": "(1.382052421809570689676966738169766304419 + 0.0j)",
+              "center": "(1.882052421809570689676966738169766304419 + 0.0j)",
+              "from_coordinates": [
+                1.3820524218095707,
+                0.0
+              ],
+              "center_coordinates": [
+                1.8820524218095707,
+                0.0
+              ],
+              "new_radius_estimate": "2.131225309168242351137884579214472882056",
+              "radius_estimate": "1.7058924047634714482115424280293022886",
+              "step_length": "0.5",
+              "retained_tail_indicator": "3.527272303018205125877711984689550976328e-20",
+              "differential_invariant_residual": "3.774437646766924514069946856808591156606e-21"
+            },
+            {
+              "from": "(1.882052421809570689676966738169766304419 + 0.0j)",
+              "center": "(2.0 + 0.0j)",
+              "from_coordinates": [
+                1.8820524218095707,
+                0.0
+              ],
+              "center_coordinates": [
+                2.0,
+                0.0
+              ],
+              "new_radius_estimate": "2.236067977499789696409173668731276235441",
+              "radius_estimate": "2.131225309168242351137884579214472882056",
+              "step_length": "0.1179475781904293103230332618302336955811",
+              "retained_tail_indicator": "1.853949292521998217017719342115876572194e-46",
+              "differential_invariant_residual": "3.774437646766924514069946856808591156606e-21"
+            }
+          ],
+          "method": "Taylor transport with d(Q*f-P)/dz=0; no exact-value resets at new centers",
+          "branch_history": "Rational single-valued source; path and principal context retained; no multivalued continuation",
+          "exclusions": [
+            "-I",
+            "I"
+          ],
+          "low_order_step_count": 6
+        },
+        "source_definition": "f(z) = 1/(1+z^2)"
+      },
+      "provenance": {
+        "source_id": "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+            1
+          ]
+        ],
+        "method": "continue",
+        "backend": "SymPy + mpmath",
+        "backend_version": "1.14.0 / 1.3.0",
+        "context": {
+          "universe_id": "standard-complex",
+          "domain": "Complexes",
+          "codomain": "Complexes",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        },
+        "rules": [
+          "A4:explicit-source-domain-and-branch-retention"
+        ],
+        "diagnostic": ""
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "21902374-5fe6-45f7-8f7f-d8489531ae1e",
+      "name": "f",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "z:62b6b3f9-88bf-43d5-8078-7d3f9f85f883",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:mul",
+        "args": [
+          {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:pow",
+            "args": [
+              {
+                "kind": "operator",
+                "value": "builtin:add",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "1",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "operator",
+                    "value": "builtin:pow",
+                    "args": [
+                      {
+                        "kind": "symbol",
+                        "value": "z:62b6b3f9-88bf-43d5-8078-7d3f9f85f883",
+                        "args": [],
+                        "conventions": []
+                      },
+                      {
+                        "kind": "integer",
+                        "value": "2",
+                        "args": [],
+                        "conventions": []
+                      }
+                    ],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              },
+              {
+                "kind": "integer",
+                "value": "-1",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "f(z) = 1/(1+z^2)",
+      "context": {
+        "universe_id": "standard-complex",
+        "domain": "Complexes",
+        "codomain": "Complexes",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    },
+    {
+      "id": "11630076-c250-43a3-8e62-1aa1da45e6e4",
+      "name": "pole",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "z:ecaf1b70-f299-4c37-88f4-dd9ae1648703",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:mul",
+        "args": [
+          {
+            "kind": "integer",
+            "value": "1",
+            "args": [],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:pow",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "z:ecaf1b70-f299-4c37-88f4-dd9ae1648703",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "integer",
+                "value": "-1",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "pole(z) = 1/z",
+      "context": {
+        "universe_id": "standard-complex",
+        "domain": "Complexes",
+        "codomain": "Complexes",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 3,
+    "view": {
+      "name": "f",
+      "mode": "numeric",
+      "coordinate": "1",
+      "lower": "-2",
+      "upper": "2",
+      "x_scale": "linear",
+      "y_scale": "linear",
+      "digits": 30,
+      "gamma_factorial": false,
+      "max_points": 1000,
+      "geometry": "domain-coloring",
+      "imaginary_lower": "-2",
+      "imaginary_upper": "2",
+      "imag_coordinate": "0",
+      "resolution": 41,
+      "height_scale": "linear",
+      "prime": 5,
+      "padic_digits": 4
+    },
+    "view_records": [],
+    "analysis_settings": {
+      "method": "continue",
+      "center_real": "0",
+      "center_imag": "0",
+      "order": 32,
+      "coefficient_method": "series",
+      "radius": "1/2",
+      "path": "0,0;2,0",
+      "dependent": "y",
+      "parameters": "a,b"
+    }
+  }
+}

@@ -11,6 +11,8 @@ from ..visualization.sampling import PlotSettings
 from ..visualization.geometry import GeometrySettings, compute_geometry
 from ..adapters.complex_numeric import COMPLEX_CONTEXT
 from ..adapters.padic import RATIONAL_CONTEXT
+from ..analysis.settings import AnalysisSettings
+from ..analysis.engine import run as run_analysis, current as analysis_current
 
 DEMO = "f(x) = x^3\ng(x) = sin(x)\nh(x) = Integral(f(g(t)), (t, 0, x))\np(x) = diff(h(x), x)"
 
@@ -19,6 +21,7 @@ class Workbench:
     def __init__(self):
         self.project = Project()
         self.view_records = []
+        self.analysis_settings = asdict(AnalysisSettings())
         self.view = {"name": "p", "mode": "exact", "coordinate": "1", **asdict(PlotSettings()), **asdict(GeometrySettings())}
         self.apply(DEMO)
 
@@ -55,9 +58,22 @@ class Workbench:
         if name == "composition":
             self.__init__()
             return self.state()
+        if name in ("series", "implicit"):
+            self.project = Project()
+            self.view_records = []
+            self.analysis_settings = asdict(AnalysisSettings(method="continue" if name=="series" else "parameter-constraint"))
+            if name=="series":
+                self.project.define("f(z) = 1/(1+z^2)", COMPLEX_CONTEXT)
+                self.project.define("pole(z) = 1/z", COMPLEX_CONTEXT)
+                self.view = {"name":"f","mode":"numeric","coordinate":"1",**asdict(PlotSettings(lower="-2",upper="2")),**asdict(GeometrySettings(geometry="domain-coloring"))}
+            else:
+                self.project.define("F(x,y,a,b) = y^2-a*x^3+b*x")
+                self.view = {"name":"F","mode":"exact","coordinate":"1",**asdict(PlotSettings()),**asdict(GeometrySettings())}
+            return self.state()
         if name in ("complex", "padic"):
             self.project = Project()
             self.view_records = []
+            self.analysis_settings = asdict(AnalysisSettings())
             definitions = ["f(z) = 1/(z^2+1)", "logarithm(z) = log(z)", "root(z) = z^(1/2)"] if name == "complex" else ["f(x) = x"]
             for definition in definitions:
                 self.project.define(definition, COMPLEX_CONTEXT if name == "complex" else RATIONAL_CONTEXT)
@@ -80,6 +96,7 @@ class Workbench:
             raise ValueError("Unknown example")
         self.project = Project()
         self.view_records = []
+        self.analysis_settings = asdict(AnalysisSettings())
         context = Context() if name == "factorial" else Context(domain="PositiveReals")
         for definition in definitions[name]:
             self.project.define(definition, context)
@@ -95,7 +112,10 @@ class Workbench:
         return {"objects": [{"id": obj.id, "name": obj.name, "definition": obj.original_definition,
                              "revision": obj.revision, "context": asdict(obj.context),
                              "dependencies": [self.project.objects[d].name for d in obj.dependencies]}
-                            for obj in self.project.objects.values()], "view": self.view}
+                            for obj in self.project.objects.values()], "view": self.view,
+                "analysis_settings": self.analysis_settings,
+                "transformations": [{"id":d.id,"description":d.description} for d in self.project.transform_registry.definitions.values()],
+                "analysis_records": [{"record":asdict(record),"current":analysis_current(self.project,record.provenance)} for record in self.project.analysis_records]}
 
     def render(self, view):
         if view.get("mode") not in ("exact", "numeric", "unevaluated"):
@@ -143,9 +163,35 @@ class Workbench:
                 self.view_records.append(deepcopy(record))
         return output
 
+    def analyse(self,data):
+        if self.view["mode"]=="unevaluated":
+            raise ValueError("Keep-unevaluated mode disables analysis; select exact or numeric mode")
+        settings=AnalysisSettings(**{key:data.get(key,default) for key,default in asdict(AnalysisSettings()).items()})
+        settings.validate(self.project)
+        options=asdict(settings)
+        method=options.pop("method")
+        options["parameters"]=[value.strip() for value in settings.parameters.split(',') if value.strip()]
+        record=run_analysis(self.project,data.get("name",self.view["name"]),method,digits=self.view["digits"],**options)
+        self.analysis_settings=asdict(settings)
+        return {"record":asdict(record),"current":True}
+
+    def set_analysis_settings(self,data):
+        settings=AnalysisSettings(**{key:data.get(key,default) for key,default in asdict(AnalysisSettings()).items()})
+        settings.validate(self.project)
+        self.analysis_settings=asdict(settings)
+        return self.state()
+
+    def register_rewrite(self,data):
+        name=data.get("name","")
+        if not isinstance(name,str) or not name or len(name)>80:
+            raise ValueError("Rewrite name must be 1..80 characters")
+        self.project.register_rewrite("custom:"+name,data["pattern"],data["replacement"])
+        self.analysis_settings["method"]="custom:"+name
+        return self.state()
+
     def export(self):
         data = json.loads(dumps(self.project))
-        data["workbench"] = {"schema_version": 2, "view": self.view, "view_records": self.view_records}
+        data["workbench"] = {"schema_version": 3, "view": self.view, "view_records": self.view_records, "analysis_settings": self.analysis_settings}
         return json.dumps(data, indent=2) + "\n"
 
     def restore(self, text):
@@ -158,7 +204,7 @@ class Workbench:
         records = metadata.get("view_records", [])
         if not isinstance(records, list) or any(not isinstance(record, dict) for record in records):
             raise ValueError("Malformed view provenance records")
-        if metadata and metadata.get("schema_version") not in (1, 2):
+        if metadata and metadata.get("schema_version") not in (1, 2, 3):
             raise ValueError("Unsupported workbench schema version")
         if not project.names:
             raise ValueError("Project contains no functions")
@@ -167,7 +213,13 @@ class Workbench:
         restored_settings = PlotSettings(**{k: view.get(k, v) for k, v in asdict(PlotSettings()).items()})
         restored_geometry = GeometrySettings(**{k: view.get(k, v) for k, v in asdict(GeometrySettings()).items()})
         restored_geometry.validate(restored_settings)
+        analysis_settings=metadata.get("analysis_settings",{})
+        if not isinstance(analysis_settings,dict):
+            raise ValueError("Malformed analysis controls")
+        restored_analysis=AnalysisSettings(**{key:analysis_settings.get(key,default) for key,default in asdict(AnalysisSettings()).items()})
+        restored_analysis.validate(project)
         self.project = project
+        self.analysis_settings=asdict(restored_analysis)
         self.view_records = deepcopy(records)
         valid_name = view.get("name") in project.names
         self.view = {"name": view.get("name") if valid_name else next(iter(project.names), ""),

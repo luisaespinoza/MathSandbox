@@ -1,0 +1,440 @@
+{
+  "schema_version": 3,
+  "operators": [
+    {
+      "id": "builtin:add",
+      "name": "add",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:add",
+      "notation": ""
+    },
+    {
+      "id": "builtin:mul",
+      "name": "mul",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:mul",
+      "notation": ""
+    },
+    {
+      "id": "builtin:pow",
+      "name": "pow",
+      "arity": 2,
+      "universe_id": "standard-real",
+      "semantics": "standard:pow",
+      "notation": ""
+    },
+    {
+      "id": "builtin:sin",
+      "name": "sin",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:sin",
+      "notation": ""
+    },
+    {
+      "id": "builtin:cos",
+      "name": "cos",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:cos",
+      "notation": ""
+    },
+    {
+      "id": "builtin:exp",
+      "name": "exp",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:exp",
+      "notation": ""
+    },
+    {
+      "id": "builtin:log",
+      "name": "log",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:log",
+      "notation": ""
+    },
+    {
+      "id": "builtin:factorial",
+      "name": "factorial",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:factorial",
+      "notation": ""
+    },
+    {
+      "id": "builtin:gamma",
+      "name": "gamma",
+      "arity": 1,
+      "universe_id": "standard-real",
+      "semantics": "standard:gamma",
+      "notation": ""
+    }
+  ],
+  "constructions": [
+    {
+      "id": "integer",
+      "kind": "iteration",
+      "description": "Finite nonnegative integer composition; no fractional extension"
+    },
+    {
+      "id": "builtin:rl-integral",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville integral; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:rl-derivative",
+      "kind": "fractional",
+      "description": "Left Riemann\u2013Liouville derivative; lower endpoint zero; power functions"
+    },
+    {
+      "id": "builtin:caputo-derivative",
+      "kind": "fractional",
+      "description": "Left Caputo derivative; lower endpoint zero; admissible power functions"
+    },
+    {
+      "id": "positive-power",
+      "kind": "iteration",
+      "description": "On x>0: the chosen family F_t(x)=x^(p^t), p>0"
+    },
+    {
+      "id": "translation",
+      "kind": "iteration",
+      "description": "On the reals: the family F_t(x)=x+c*t"
+    },
+    {
+      "id": "positive-scaling",
+      "kind": "iteration",
+      "description": "The family F_t(x)=a^t*x, a>0"
+    }
+  ],
+  "transform_registry": [
+    {
+      "id": "builtin:differentiate",
+      "operation": "differentiate",
+      "description": "Symbolic derivative; integration needs reconstruction data",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    },
+    {
+      "id": "builtin:factor",
+      "operation": "factor",
+      "description": "Factor while retaining the original source exclusions",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    },
+    {
+      "id": "builtin:simplify",
+      "operation": "simplify",
+      "description": "Simplify while retaining the original source exclusions",
+      "parameter": null,
+      "pattern": null,
+      "replacement": null
+    }
+  ],
+  "analytic_germs": [],
+  "analysis_records": [
+    {
+      "id": "f9bbf2e5-48b6-4531-83ad-1f7f4737bd7c",
+      "method": "parameter-constraint",
+      "status": "conditional-symbolic-identity",
+      "result": {
+        "kind": "operator",
+        "value": "builtin:add",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "symbol",
+                    "value": "x:374efcca-2db1-4b03-b756-02c925c19d40",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              },
+              {
+                "kind": "symbol",
+                "value": "partial:6c6e233f-5d9d-429a-b83d-26ba9fc08635",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "symbol",
+            "value": "partial:611f47ed-1739-4026-907b-ae258ebe7608",
+            "args": [],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "assumptions": [
+        "Original implicit equation F=0",
+        "y != 0"
+      ],
+      "exceptional_sets": [
+        "2*y = 0"
+      ],
+      "reconstruction": "Retain original F=0, regular branch selection, and reconstruction/initial data; constraint alone is necessary, not complete",
+      "details": {
+        "constraint": "x**2*y_b + y_a = 0",
+        "dependent": "y",
+        "parameters": [
+          "a",
+          "b"
+        ],
+        "F_y": "2*y",
+        "parameter_partials": {
+          "a": "x**3/(2*y)",
+          "b": "-x/(2*y)"
+        },
+        "syzygy_coefficients": [
+          "1",
+          "x**2"
+        ],
+        "checked_syzygy_residual": "0",
+        "derivative_bindings": {
+          "partial:611f47ed-1739-4026-907b-ae258ebe7608": "y_a",
+          "partial:6c6e233f-5d9d-429a-b83d-26ba9fc08635": "y_b"
+        },
+        "source_equation": "y^2-a*x^3+b*x = 0",
+        "scope": "Necessary identity only on F=0 and F_y != 0; not a complete PDE replacement",
+        "source_definition": "F(x,y,a,b) = y^2-a*x^3+b*x"
+      },
+      "provenance": {
+        "source_id": "1cd6286b-3e5f-4c89-8195-43bb490c4706",
+        "source_revision": 1,
+        "dependency_revisions": [
+          [
+            "1cd6286b-3e5f-4c89-8195-43bb490c4706",
+            1
+          ]
+        ],
+        "method": "parameter-constraint",
+        "backend": "SymPy",
+        "backend_version": "1.14.0",
+        "context": {
+          "universe_id": "standard-real",
+          "domain": "Reals",
+          "codomain": "Reals",
+          "assumptions": [],
+          "branches": [
+            "principal"
+          ],
+          "axioms": [
+            "standard-arithmetic"
+          ],
+          "precision": 53
+        },
+        "rules": [
+          "A4:explicit-source-domain-and-branch-retention"
+        ],
+        "diagnostic": ""
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "1cd6286b-3e5f-4c89-8195-43bb490c4706",
+      "name": "F",
+      "parameters": [
+        {
+          "kind": "symbol",
+          "value": "x:374efcca-2db1-4b03-b756-02c925c19d40",
+          "args": [],
+          "conventions": []
+        },
+        {
+          "kind": "symbol",
+          "value": "y:e9bb876d-7963-4ad1-9417-940bab253b16",
+          "args": [],
+          "conventions": []
+        },
+        {
+          "kind": "symbol",
+          "value": "a:9b9a904e-591c-49ad-b408-f7c20975bf1f",
+          "args": [],
+          "conventions": []
+        },
+        {
+          "kind": "symbol",
+          "value": "b:512d0847-283a-4187-99f6-4f6d019a1e21",
+          "args": [],
+          "conventions": []
+        }
+      ],
+      "expression": {
+        "kind": "operator",
+        "value": "builtin:add",
+        "args": [
+          {
+            "kind": "operator",
+            "value": "builtin:add",
+            "args": [
+              {
+                "kind": "operator",
+                "value": "builtin:pow",
+                "args": [
+                  {
+                    "kind": "symbol",
+                    "value": "y:e9bb876d-7963-4ad1-9417-940bab253b16",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "integer",
+                    "value": "2",
+                    "args": [],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              },
+              {
+                "kind": "operator",
+                "value": "builtin:mul",
+                "args": [
+                  {
+                    "kind": "integer",
+                    "value": "-1",
+                    "args": [],
+                    "conventions": []
+                  },
+                  {
+                    "kind": "operator",
+                    "value": "builtin:mul",
+                    "args": [
+                      {
+                        "kind": "symbol",
+                        "value": "a:9b9a904e-591c-49ad-b408-f7c20975bf1f",
+                        "args": [],
+                        "conventions": []
+                      },
+                      {
+                        "kind": "operator",
+                        "value": "builtin:pow",
+                        "args": [
+                          {
+                            "kind": "symbol",
+                            "value": "x:374efcca-2db1-4b03-b756-02c925c19d40",
+                            "args": [],
+                            "conventions": []
+                          },
+                          {
+                            "kind": "integer",
+                            "value": "3",
+                            "args": [],
+                            "conventions": []
+                          }
+                        ],
+                        "conventions": []
+                      }
+                    ],
+                    "conventions": []
+                  }
+                ],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          },
+          {
+            "kind": "operator",
+            "value": "builtin:mul",
+            "args": [
+              {
+                "kind": "symbol",
+                "value": "b:512d0847-283a-4187-99f6-4f6d019a1e21",
+                "args": [],
+                "conventions": []
+              },
+              {
+                "kind": "symbol",
+                "value": "x:374efcca-2db1-4b03-b756-02c925c19d40",
+                "args": [],
+                "conventions": []
+              }
+            ],
+            "conventions": []
+          }
+        ],
+        "conventions": []
+      },
+      "original_definition": "F(x,y,a,b) = y^2-a*x^3+b*x",
+      "context": {
+        "universe_id": "standard-real",
+        "domain": "Reals",
+        "codomain": "Reals",
+        "assumptions": [],
+        "branches": [
+          "principal"
+        ],
+        "axioms": [
+          "standard-arithmetic"
+        ],
+        "precision": 53
+      },
+      "dependencies": [],
+      "revision": 1,
+      "kind": "function"
+    }
+  ],
+  "history": [],
+  "transformations": [],
+  "representations": {},
+  "workbench": {
+    "schema_version": 3,
+    "view": {
+      "name": "F",
+      "mode": "exact",
+      "coordinate": "1",
+      "lower": "-5",
+      "upper": "5",
+      "x_scale": "linear",
+      "y_scale": "linear",
+      "digits": 30,
+      "gamma_factorial": false,
+      "max_points": 1000,
+      "geometry": "real",
+      "imaginary_lower": "-2",
+      "imaginary_upper": "2",
+      "imag_coordinate": "0",
+      "resolution": 41,
+      "height_scale": "linear",
+      "prime": 5,
+      "padic_digits": 4
+    },
+    "view_records": [],
+    "analysis_settings": {
+      "method": "parameter-constraint",
+      "center_real": "0",
+      "center_imag": "0",
+      "order": 32,
+      "coefficient_method": "series",
+      "radius": "1/2",
+      "path": "0,0;2,0",
+      "dependent": "y",
+      "parameters": "a,b"
+    }
+  }
+}
